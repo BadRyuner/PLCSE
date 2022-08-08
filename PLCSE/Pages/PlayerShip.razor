@@ -1,4 +1,5 @@
 ﻿@page "/playership"
+@inject IDialogService DialogService
 
 @if(Save.CurrentSave != null)
 {
@@ -74,7 +75,7 @@
 					{
 						var ii = i;
 						<tr>
-							<td><MudNumericField @bind-Value="PLCSE.Save.CurrentSave.PS_ComponentHash[ii]" Margin="Margin.Dense" Variant="Variant.Outlined"/></td>
+							<td><MudNumericField @bind-Value="PLCSE.Save.CurrentSave.PS_ComponentHash[ii]" Margin="Margin.Dense" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Outlined.Edit" OnAdornmentClick="@(() => BetterComponentEdit(ii))"/></td>
 							<td><MudNumericField @bind-Value="PLCSE.Save.CurrentSave.PS_ComponentSortID[ii]" Margin="Margin.Dense" Variant="Variant.Outlined"/></td>
 							<td><MudNumericField @bind-Value="PLCSE.Save.CurrentSave.PS_SubTypeData[ii]" Margin="Margin.Dense" Variant="Variant.Outlined"/></td>
 							<td>@Helpers.DecodeNameForComponent(PLCSE.Save.CurrentSave.PS_ComponentHash[ii])</td>
@@ -95,4 +96,11 @@
 @code {
 	protected override void OnInitialized() => InvokeAsync(StateHasChanged);
 	async void RebuildUI() => await InvokeAsync(StateHasChanged);
+	private async void BetterComponentEdit(int ii)
+	{
+		var param = new DialogParameters();
+		param.Add("target", ii);
+		await DialogService.Show<Dialogs.BetterComponentEdit>("Select New Component", param).Result;
+		RebuildUI();
+	}
 }

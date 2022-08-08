@@ -1,0 +1,61 @@
+﻿<MudDialog>
+    <DialogContent>
+        <!-- <MudNumericField @bind-Value="@ware.type" Label="Type" Margin="Margin.Dense" Variant="Variant.Outlined"/> -->
+        <MudSelect @bind-Value="@ware.type" Label="Type" Margin="Margin.Dense" Variant="Variant.Outlined">
+            <MudSelectItem Value="@((uint)CompType.Shields)">Shields</MudSelectItem>
+            <MudSelectItem Value="@((uint)CompType.WarpDrive)">WarpDrive</MudSelectItem>
+            <MudSelectItem Value="@((uint)CompType.Reactor)">Reactor</MudSelectItem>
+            <MudSelectItem Value="@((uint)CompType.Sensor)">Sensor</MudSelectItem>
+            <MudSelectItem Value="@((uint)CompType.Hull)">Hull</MudSelectItem>
+            <MudSelectItem Value="@((uint)CompType.CPU)">CPU</MudSelectItem>
+            <MudSelectItem Value="@((uint)CompType.Oxygen)">Oxygen</MudSelectItem>
+            <MudSelectItem Value="@((uint)CompType.Thruster)">Thruster</MudSelectItem>
+            <MudSelectItem Value="@((uint)CompType.Turret)">Turret</MudSelectItem>
+            <MudSelectItem Value="@((uint)CompType.MainTurret)">MainTurret</MudSelectItem>
+            <MudSelectItem Value="@((uint)CompType.HullPlating)">HullPlating</MudSelectItem>
+            <MudSelectItem Value="@((uint)CompType.Program)">Program</MudSelectItem>
+            <MudSelectItem Value="@((uint)CompType.Nuclear)">Nuclear</MudSelectItem>
+            <MudSelectItem Value="@((uint)CompType.Missle)">Missle</MudSelectItem>
+            <MudSelectItem Value="@((uint)CompType.Scrap)">Scrap</MudSelectItem>
+            <MudSelectItem Value="@((uint)CompType.DistressSignal)">DistressSignal</MudSelectItem>
+            <MudSelectItem Value="@((uint)CompType.Mission)">Mission</MudSelectItem>
+            <MudSelectItem Value="@((uint)CompType.AutoTurret)">AutoTurret</MudSelectItem>
+            <MudSelectItem Value="@((uint)CompType.InertiaThruster)">InertiaThruster</MudSelectItem>
+            <MudSelectItem Value="@((uint)CompType.ManeuverThruster)">ManeuverThruster</MudSelectItem>
+            <MudSelectItem Value="@((uint)CompType.CaptainChair)">CaptainChair</MudSelectItem>
+            <MudSelectItem Value="@((uint)CompType.Extractor)">Extractor</MudSelectItem>
+            <MudSelectItem Value="@((uint)CompType.FBRecipe)">FBRecipe</MudSelectItem>
+            <MudSelectItem Value="@((uint)CompType.BiscuitBomb)">BiscuitBomb</MudSelectItem>
+            <MudSelectItem Value="@((uint)CompType.SensorDish)">SensorDish</MudSelectItem>
+        </MudSelect>
+        <MudNumericField @bind-Value="@ware.subtype" Label="SubType" Margin="Margin.Dense" Variant="Variant.Outlined"/>
+        <MudNumericField @bind-Value="@ware.subtypedata" Label="SubType Data" Margin="Margin.Dense" Variant="Variant.Outlined"/>
+        <MudNumericField @bind-Value="@ware.level" Label="Level" Margin="Margin.Dense" Variant="Variant.Outlined"/>
+        <MudNumericField @bind-Value="@ware.visualSlotType" Label="Visual Slot Type" Margin="Margin.Dense" Variant="Variant.Outlined"/>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+    [Parameter] public int target { get; set; }
+
+    public PLWare ware;
+
+    protected override void OnInitialized()
+    {
+        Console.WriteLine("TEST");
+        ware = PLWare.CreateFromHash(1, (int)PLCSE.Save.CurrentSave.PS_ComponentHash[target]);
+    }
+
+    void Submit()
+    {
+        PLCSE.Save.CurrentSave.PS_ComponentHash[target] = ware.getHash();
+        MudDialog.Close(DialogResult.Ok(true));
+    }
+    void Cancel() => MudDialog.Cancel();
+
+}

@@ -5,10 +5,10 @@
         <MudStack>
             <MudPaper>
             <MudNavMenu Dense="true" Color="Color.Primary">
-                <MudNavLink Href="/" Icon="@Icons.Outlined.Home">Home</MudNavLink>
-                <MudNavLink Href="/playership">Player Ship</MudNavLink>
-                <MudNavLink Href="/crewscience">Crew & Science</MudNavLink>
-                <MudNavLink Href="/galaxy">Galaxy</MudNavLink>
+                <MudNavLink Href="@mainpage" Icon="@Icons.Outlined.Home">Home</MudNavLink>
+                <MudNavLink Href="@playership">Player Ship</MudNavLink>
+                <MudNavLink Href="@crewscience">Crew & Science</MudNavLink>
+                <MudNavLink Href="@galaxy">Galaxy</MudNavLink>
             </MudNavMenu>
             </MudPaper>
             @Body
@@ -23,11 +23,13 @@
 @code{
     #if DEBUG
     string mainpage = "/";
-    string playership = "/crewscience";
+    string crewscience = "/crewscience";
+    string playership = "/playership";
     string galaxy = "/galaxy";
     #else
     string mainpage = "/PLCSE";
-    string playership = "/PLCSE/crewscience";
+    string playership = "/PLCSE/playership";
+    string crewscience = "/PLCSE/crewscience";
     string galaxy = "/PLCSE/galaxy";
     #endif
 }

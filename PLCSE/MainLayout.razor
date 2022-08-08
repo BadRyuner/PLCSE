@@ -19,3 +19,15 @@
 <MudThemeProvider IsDarkMode="true"/>
 <MudDialogProvider/>
 <MudSnackbarProvider/>
+
+@code{
+    #if DEBUG
+    string mainpage = "/";
+    string playership = "/crewscience";
+    string galaxy = "/galaxy";
+    #else
+    string mainpage = "/PLCSE";
+    string playership = "/PLCSE/crewscience";
+    string galaxy = "/PLCSE/galaxy";
+    #endif
+}

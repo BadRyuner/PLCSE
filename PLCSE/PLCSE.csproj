@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\Icons\0.png" />
+    <None Include="wwwroot\Icons\1.png" />
+    <None Include="wwwroot\Icons\2.png" />
+    <None Include="wwwroot\Icons\4.png" />
+    <None Include="wwwroot\Icons\5.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BlazorDownloadFile" Version="2.4.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.7" PrivateAssets="all" />

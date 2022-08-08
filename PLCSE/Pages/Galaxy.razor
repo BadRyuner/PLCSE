@@ -1,0 +1,102 @@
+﻿@page "/galaxy"
+
+@if(Save.CurrentSave != null)
+{
+	<MudCard>
+		<MudCardHeader>
+			<MudText Typo="Typo.h6" Align="Align.Center">Galaxy Data</MudText>
+		</MudCardHeader>
+		<MudCardContent>
+			<MudGrid>
+				<MudItem xs="12" sm="4">  
+					<MudNumericField @bind-Value="Save.CurrentSave.ChaosLevel" Label="Chaos Level" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4">  
+					<MudNumericField @bind-Value="Save.CurrentSave.ActiveChaosEvents" Label="Active Chaos Events" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4"> 
+					<MudCheckBox @bind-Checked="Save.CurrentSave.PS_IsReflection" Label="Is Reflection" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="12">  
+					<MudText>Storm Position</MudText> 
+				</MudItem>
+				<MudItem xs="12" sm="4">  
+					<MudNumericField @bind-Value="Save.CurrentSave.StormPosition.x" Label="X" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4"> 
+					<MudNumericField @bind-Value="Save.CurrentSave.StormPosition.y" Label="Y" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4">  
+					<MudNumericField @bind-Value="Save.CurrentSave.StormPosition.z" Label="Z" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+			</MudGrid>
+		</MudCardContent>
+	</MudCard>
+
+	<MudCard>
+		<MudCardHeader>
+			<MudText Typo="Typo.h6" Align="Align.Center">Factions</MudText>
+		</MudCardHeader>
+		<MudCardContent>
+			<MudGrid>
+				<MudItem xs="12" sm="4">  
+					<MudNumericField @bind-Value="Save.CurrentSave.FactionRepInfo[0]" Label="CU Faction Rep" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4">  
+					<MudNumericField @bind-Value="Save.CurrentSave.FactionRepInfo[1]" Label="AOG Faction Rep" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4">  
+					<MudNumericField @bind-Value="Save.CurrentSave.FactionRepInfo[2]" Label="WD Faction Rep" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4">  
+					<MudNumericField @bind-Value="Save.CurrentSave.FactionRepInfo[3]" Label="FB Faction Rep" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4">  
+					<MudNumericField @bind-Value="Save.CurrentSave.FactionRepInfo[4]" Label="PT Faction Rep" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+			</MudGrid>
+		</MudCardContent>
+	</MudCard>
+
+	<MudCard>
+		<MudCardHeader>
+			<MudText Typo="Typo.h6" Align="Align.Center">Races Info</MudText>
+		</MudCardHeader>
+		<MudCardContent>
+			<MudGrid>
+				<MudItem xs="12" sm="4">  
+					<MudNumericField @bind-Value="Save.CurrentSave.RacesWonBitfield" Label="Races Won Bitfield" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4"> 
+					<MudNumericField @bind-Value="Save.CurrentSave.RacesLostBitfield" Label="Races Lost Bitfield" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4">  
+					<MudNumericField @bind-Value="Save.CurrentSave.RacesStartedBitfield" Label="Races Started Bitfield" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+			</MudGrid>
+		</MudCardContent>
+	</MudCard>
+
+	<MudCard>
+		<MudCardHeader>
+			<MudText Typo="Typo.h6" Align="Align.Center">Polytech Data</MudText>
+		</MudCardHeader>
+		<MudCardContent>
+			<MudGrid>
+				<MudItem xs="12" sm="4">  
+					<MudCheckBox @bind-Checked="Save.CurrentSave.PTCountdownArmed" Label="PT Countdown Armed" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4"> 
+					<MudCheckBox @bind-Checked="Save.CurrentSave.PTCountdownDisabledTimer" Label="PT Countdown Disabled Timer" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4">  
+					<MudNumericField @bind-Value="Save.CurrentSave.PTCountdown" Label="PT Countdown" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+			</MudGrid>
+		</MudCardContent>
+	</MudCard>
+}
+
+@code {
+
+}

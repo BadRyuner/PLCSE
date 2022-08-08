@@ -1,0 +1,113 @@
+﻿@page "/crewscience"
+
+@if(Save.CurrentSave != null)
+{
+	<MudCard>
+		<MudCardHeader>
+			<MudText Typo="Typo.h6" Align="Align.Center">Crew Info</MudText>
+		</MudCardHeader>
+		<MudCardContent>
+			<MudGrid>
+				<MudItem xs="12" sm="4">  
+					<MudNumericField @bind-Value="Save.CurrentSave.CrewCredits" Label="Credits" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4"> 
+					<MudNumericField @bind-Value="Save.CurrentSave.CrewXP" Label="XP" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4"> 
+					<MudNumericField @bind-Value="Save.CurrentSave.CrewLevel" Label="Level" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4"> 
+					<MudNumericField @bind-Value="Save.CurrentSave.CrewFactionID" Label="Crew Faction ID" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4"> 
+					<MudCheckBox @bind-Checked="Save.CurrentSave.PurchaseLimitsEnabled" Label="Purchase Limits Enabled" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+			</MudGrid>
+		</MudCardContent>
+	</MudCard>
+
+	<MudCard>
+		<MudCardHeader>
+			<MudText Typo="Typo.h6" Align="Align.Center">Research Data</MudText>
+		</MudCardHeader>
+		<MudCardContent>
+			<MudGrid>
+				<!-- <MudItem xs="12" sm="4"> 
+					<MudSelect bind-Value="Save.CurrentSave.TalentToResearch" Label="Talent To Research" Margin="Margin.Dense">
+					foreach (var item in Enum.GetValues(typeof(ETalents)))
+					{
+						<MudSelectItem Value="item">item</MudSelectItem>
+					}
+					</MudSelect>
+				</MudItem> EXCEPTON LOL +_+ -->
+				<MudItem xs="12" sm="6"> 
+					<MudNumericField @bind-Value="Save.CurrentSave.TalentLockedStatus" Label="As long decimal" Margin="Margin.Dense" Variant="Variant.Outlined"/>
+				</MudItem>
+
+				<MudItem xs="12" sm="6">  
+					<MudNumericField @bind-Value="Save.CurrentSave.JumpsNeededToResearchTalent" Label="Jumps Needed To Research Talent" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				
+				<MudItem xs="6" sm="1">
+					<MudImage Src="Icons/0.png" Alt="" Elevation="0" Class="rounded-lg" Width="38" Height="38"/>
+				</MudItem>
+				<MudItem xs="6" sm="2">  
+					<MudNumericField @bind-Value="Save.CurrentSave.ResearchMaterials[0]" Label="Stamans" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+
+				<MudItem xs="6" sm="1">
+					<MudImage Src="Icons/1.png" Alt="" Elevation="0" Class="rounded-lg" Width="38" Height="38"/>
+				</MudItem>
+				<MudItem xs="6" sm="2">
+					<MudNumericField @bind-Value="Save.CurrentSave.ResearchMaterials[1]" Label="Aedificiates" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+
+				<MudItem xs="6" sm="1">
+					<MudImage Src="Icons/2.png" Alt="" Elevation="0" Class="rounded-lg" Width="38" Height="38"/>
+				</MudItem>
+				<MudItem xs="6" sm="2">
+					<MudNumericField @bind-Value="Save.CurrentSave.ResearchMaterials[2]" Label="Aevameres" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+
+				<MudItem xs="6" sm="1">
+					<MudImage Src="Icons/3.png" Alt="" Elevation="0" Class="rounded-lg" Width="38" Height="38"/>
+				</MudItem>
+				<MudItem xs="3" sm="2">
+					<MudNumericField @bind-Value="Save.CurrentSave.ResearchMaterials[3]" Label="Sensusites" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+
+				<MudItem xs="6" sm="1">
+					<MudImage Src="Icons/4.png" Alt="" Elevation="0" Class="rounded-lg" Width="38" Height="38"/>
+				</MudItem>
+				<MudItem xs="3" sm="2">
+					<MudNumericField @bind-Value="Save.CurrentSave.ResearchMaterials[4]" Label="Mutoumates" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+
+				<MudItem xs="6" sm="1">
+					<MudImage Src="Icons/5.png" Alt="" Elevation="0" Class="rounded-lg" Width="38" Height="38"/>
+				</MudItem>
+				<MudItem xs="3" sm="2">
+					<MudNumericField @bind-Value="Save.CurrentSave.ResearchMaterials[5]" Label="Vortosites" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+			</MudGrid>
+		</MudCardContent>
+	</MudCard>
+
+	<MudCard>
+		<MudCardHeader>
+			<MudText Typo="Typo.h6" Align="Align.Center">Data Fragments</MudText>
+		</MudCardHeader>
+		<MudCardContent>
+			<MudText>Work In Progress...</MudText>
+			<MudGrid>
+				<MudItem xs="12" sm="4">  
+					<MudNumericField @bind-Value="Save.CurrentSave.DataFragmentsCollected" Label="Data Fragments Collected" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+			</MudGrid>
+		</MudCardContent>
+	</MudCard>
+}
+
+@code {
+}

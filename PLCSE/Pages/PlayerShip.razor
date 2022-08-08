@@ -1,0 +1,98 @@
+﻿@page "/playership"
+
+@if(Save.CurrentSave != null)
+{
+	<MudCard>
+		<MudCardHeader>
+			<MudText Typo="Typo.h6" Align="Align.Center">Player Ship</MudText>
+		</MudCardHeader>
+		<MudCardContent>
+			<MudGrid>
+				<MudItem xs="12" sm="4">  
+					<MudTextField @bind-Value="Save.CurrentSave.PS_ShipName" Label="Ship Name" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4">  
+					<MudNumericField @bind-Value="Save.CurrentSave.PS_ShipType" Label="Ship Type" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4">  
+					<MudNumericField @bind-Value="Save.CurrentSave.CurrentSectorID" Label="Current Sector ID" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4">  
+					<MudNumericField @bind-Value="Save.CurrentSave.PS_Fuel" Label="Fuel" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4">  
+					<MudNumericField @bind-Value="Save.CurrentSave.PS_Hull" Label="Hull" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4">  
+					<MudNumericField @bind-Value="Save.CurrentSave.PS_CoolantLevel" Label="Coolant Level" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4"> 
+					<MudNumericField @bind-Value="Save.CurrentSave.ShipPosition.x" Label="Ship Position X" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4"> 
+					<MudNumericField @bind-Value="Save.CurrentSave.ShipPosition.y" Label="Ship Position Y" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4"> 
+					<MudNumericField @bind-Value="Save.CurrentSave.ShipPosition.z" Label="Ship Position Z" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4"> 
+					<MudNumericField @bind-Value="Save.CurrentSave.ShipDirection.x" Label="Ship Direction X" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4"> 
+					<MudNumericField @bind-Value="Save.CurrentSave.ShipDirection.y" Label="Ship Direction Y" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4"> 
+					<MudNumericField @bind-Value="Save.CurrentSave.ShipDirection.z" Label="Ship Direction Z" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4"> 
+					<MudCheckBox @bind-Checked="Save.CurrentSave.PlayerShipIsFlagged" Label="Is Flagged" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4"> 
+					<MudCheckBox @bind-Checked="Save.CurrentSave.PlayerShipIsRevealed" Label="Is Revealed" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+				<MudItem xs="12" sm="4"> 
+					<MudCheckBox @bind-Checked="Save.CurrentSave.LongRangeCommsDisabled" Label="Long Range Comms Disabled" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				</MudItem>
+			</MudGrid>
+		</MudCardContent>
+	</MudCard>
+
+	<MudCard>
+		<MudCardHeader>
+			<MudText Typo="Typo.h6">Components</MudText>
+		</MudCardHeader>
+		<MudCardContent>
+			<MudSimpleTable Bordered="true" Dense="true" Outlined="true">
+				<thead>
+					<th>Hash</th>
+					<th>Sort ID</th>
+					<th>Subtype Data</th>
+					<th>Decoded Name</th>
+				</thead>
+				<tbody>
+					@for(int i = 0; i < Save.CurrentSave.PS_NumComponents; i++)
+					{
+						var ii = i;
+						<tr>
+							<td><MudNumericField @bind-Value="PLCSE.Save.CurrentSave.PS_ComponentHash[ii]" Margin="Margin.Dense" Variant="Variant.Outlined"/></td>
+							<td><MudNumericField @bind-Value="PLCSE.Save.CurrentSave.PS_ComponentSortID[ii]" Margin="Margin.Dense" Variant="Variant.Outlined"/></td>
+							<td><MudNumericField @bind-Value="PLCSE.Save.CurrentSave.PS_SubTypeData[ii]" Margin="Margin.Dense" Variant="Variant.Outlined"/></td>
+							<td>@Helpers.DecodeNameForComponent(PLCSE.Save.CurrentSave.PS_ComponentHash[ii])</td>
+						</tr>
+					}
+				</tbody>
+			</MudSimpleTable>
+		</MudCardContent>
+		<MudCardMedia>
+			<MudButton Variant="Variant.Text" Color="Color.Primary"
+				StartIcon="@Icons.Filled.Refresh"
+				OnClick="@RebuildUI">
+				Rebuild "Decoded Name" column
+			</MudButton>
+		</MudCardMedia>
+	</MudCard>
+}
+@code {
+	protected override void OnInitialized() => InvokeAsync(StateHasChanged);
+	async void RebuildUI() => await InvokeAsync(StateHasChanged);
+}

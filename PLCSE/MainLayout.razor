@@ -1,10 +1,18 @@
 ﻿@inherits LayoutComponentBase
 
-<!-- <main> @Body </main> -->
-
 <MudLayout>
     <MudMainContent>
-        @Body
+        <MudStack>
+            <MudPaper>
+            <MudNavMenu Dense="true" Color="Color.Primary">
+                <MudNavLink Href="/" Icon="@Icons.Outlined.Home">Home</MudNavLink>
+                <MudNavLink Href="/playership">Player Ship</MudNavLink>
+                <MudNavLink Href="/crewscience">Crew & Science</MudNavLink>
+                <MudNavLink Href="/galaxy">Galaxy</MudNavLink>
+            </MudNavMenu>
+            </MudPaper>
+            @Body
+        </MudStack>
     </MudMainContent>
 </MudLayout>
 

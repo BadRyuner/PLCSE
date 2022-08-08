@@ -8,12 +8,25 @@ using ObscuredVector3 = PLCSE.Vector3;
 using ObscuredString = System.String;
 using ObscuredFloat = System.Single;
 
+using System.Collections;
 using PLCSE;
 
 namespace PLCSE
 {
 	public class SaveGameData : SaveGameDataBasic
 	{
+		//public bool[] TalentsArray = new bool[64];
+
+		public void AfterRead()
+        {
+			//for (int i = 0; i < TalentsArray.Length; i++) TalentsArray[i] = (TalentLockedStatus & (1L << i)) == 1;
+        }
+
+		public void BeforeWrite()
+        {
+			
+        }
+
 		public ObscuredInt[] FactionRepInfo;
 
 		public ObscuredBool BiscuitContestIsOver;

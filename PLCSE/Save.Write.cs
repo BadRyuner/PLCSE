@@ -5,6 +5,7 @@
         public static byte[] SaveToBytes()
         {
             var s = CurrentSave;
+            s.BeforeWrite();
             using (MemoryStream _ms = new MemoryStream())
             using (BinaryWriter w = new BinaryWriter(_ms))
             {
@@ -80,12 +81,12 @@
                 w.Write(s.PS_IsReflection);//
                 w.Write(s.PS_AdditionalShipData.Length);
                 w.Write(s.PS_AdditionalShipData);
-                w.Write(s.PS_NumComponents);
+                w.Write(s.PS_NumComponents);//
                 for(int i = 0; i < s.PS_NumComponents; i++)
                 {
-                    w.Write(s.PS_ComponentHash[i]);
-                    w.Write(s.PS_ComponentSortID[i]);
-                    w.Write(s.PS_SubTypeData[i]);
+                    w.Write(s.PS_ComponentHash[i]);//
+                    w.Write(s.PS_ComponentSortID[i]);//
+                    w.Write(s.PS_SubTypeData[i]);//
                 }
                 w.Write(s.PS_DroppedItems.Count);
                 for(int i = 0; i < s.PS_DroppedItems.Count; i++)

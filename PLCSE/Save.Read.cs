@@ -630,6 +630,7 @@ namespace PLCSE
 				}
 			}
 			binaryReader.Close();
+			sgd.AfterRead();
 			return sgd;
 		}
 

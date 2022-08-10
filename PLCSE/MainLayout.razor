@@ -16,7 +16,7 @@
     </MudMainContent>
 </MudLayout>
 
-<MudThemeProvider IsDarkMode="true"/>
+<MudThemeProvider IsDarkMode="true" Theme="@mudTheme"/>
 <MudDialogProvider/>
 <MudSnackbarProvider/>
 
@@ -32,4 +32,12 @@
     string crewscience = "/PLCSE/crewscience";
     string galaxy = "/PLCSE/galaxy";
     #endif
+
+    MudTheme mudTheme;
+
+    protected override void OnInitialized()
+    {
+        mudTheme = new MudTheme() { };
+        mudTheme.LayoutProperties.AppbarHeight = "0";
+    }
 }

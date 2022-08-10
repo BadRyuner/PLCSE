@@ -1,0 +1,43 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudSelect Label="Mission Name" Margin="Margin.Dense" Variant="Variant.Outlined" @bind-Value="target">
+            @foreach(var i in Missions.missions)
+            {
+                var ii = i;
+                <MudSelectItem Value="@ii">@ii.Name</MudSelectItem>
+            }
+        </MudSelect>
+        <MudText Typo="Typo.body2">Selected mission description: @target.Desc</MudText>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    Missions.MissionData target = Missions.missions.First();
+
+    void Submit()
+    {
+        int[] arr = new int[target.ObjCount];
+        Array.Fill(arr, 1);
+        bool[] barr = new bool[target.ObjCount];
+        Array.Fill(barr, false);
+        PLCSE.Save.CurrentSave.MissionDataBlocks.Insert(0, new MissionDataBlock() {
+                MissionID = target.Id,
+                Abandoned = false,
+                Ended = false, 
+                IsPickupMission = false, 
+                RanStartRewards = false,
+                ObjectivesAmountCompleted = arr, 
+                ObjectivesAmountNeeded = arr, 
+                ObjectivesCompleted = barr,
+                ObjectivesShownCompletedMessage = barr
+        });
+        MudDialog.Close(DialogResult.Ok(true));
+    }
+    void Cancel() => MudDialog.Cancel();
+}

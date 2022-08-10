@@ -1,4 +1,6 @@
 ﻿@page "/missions"
+@inject HttpClient _client;
+@inject IDialogService DialogService;
 
 <MudCard>
 	<MudCardHeader>
@@ -17,6 +19,7 @@
 		<MudSimpleTable Bordered="true" Dense="true" Outlined="true">
 			<thead>
 				<th>Mission ID</th>
+				<th>Mission Name</th>
 				<th>Abandoned</th>
 				<th>Ended</th>
 				<th>Objectives Amount Completed</th>
@@ -32,6 +35,7 @@
 					var mdb = PLCSE.Save.CurrentSave.MissionDataBlocks[ii];
 					<tr>
 						<td><MudNumericField @bind-Value="mdb.MissionID" Margin="Margin.Dense" Variant="Variant.Outlined" /></td>
+						<td><MudText>@missions.FirstOrDefault(m => m.Id == mdb.MissionID)?.Name</MudText></td>
 						<td><MudCheckBox @bind-Checked="mdb.Abandoned" /></td>
 						<td><MudCheckBox @bind-Checked="mdb.Ended" /></td>
 						<td><MudNumericField Converter="@MyConverters.IntArr" @bind-Value="mdb.ObjectivesAmountCompleted" Margin="Margin.Dense" Variant="Variant.Outlined" /></td>
@@ -57,10 +61,36 @@
 			StartIcon="@Icons.Filled.NavigateNext"
 			OnClick="@((e) => UpdateSelected(10))">
 		</MudButton>
+		<MudButton Variant="Variant.Text" Color="Color.Primary"
+				   StartIcon="@Icons.Filled.Add"
+				   OnClick="@((e) => DialogService.Show<Dialogs.AddNewMission>("Select New Mission"))">
+				   Add New Mission
+		</MudButton>
 	</MudCardActions>
 </MudCard>
 
 @code {
+	public class MissionData {
+		public int Id;
+		public string Name;
+		public string Desc;
+		public int ObjCount;
+	}
+
+	public static List<MissionData> missions = new List<MissionData>();
+
+	protected override async Task OnInitializedAsync()
+	{
+		if (missions.Count != 0)
+			return;
+		string[] result = (await _client.GetStringAsync("Data/missions.txt")).Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+		foreach (var i in result)
+		{
+			var splitted = i.Split("||||");
+			missions.Add(new MissionData() { Name = splitted[0], Desc = splitted[1], Id = int.Parse(splitted[2]), ObjCount = int.Parse(splitted[3]) });
+		}
+	}
+
 	int _selected = 0;
 	int _selectedMax = 10;
 	void UpdateSelected(sbyte change)

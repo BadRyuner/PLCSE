@@ -235,23 +235,23 @@
                         w.Write(i.RH_Crew);
                     }
                 }
-                w.Write(s.MissionDataBlocks.Count);
+                w.Write(s.MissionDataBlocks.Count);//
                 //Console.WriteLine($"Writed: MissionDataBlocks[].Length -> {s.MissionDataBlocks.Count}");
-                foreach (var i in s.MissionDataBlocks)
+                foreach (var i in s.MissionDataBlocks)//
                 {
-                    w.Write(i.MissionID);
-                    w.Write(i.Abandoned);
-                    w.Write(i.Ended);
-                    w.Write(i.ObjectivesCompleted.Length);
+                    w.Write(i.MissionID);//
+                    w.Write(i.Abandoned);//
+                    w.Write(i.Ended);//
+                    w.Write(i.ObjectivesCompleted.Length);//
                     for (int x = 0; x < i.ObjectivesCompleted.Length; x++)
                     {
-                        w.Write(i.ObjectivesCompleted[x]);
-                        w.Write(i.ObjectivesAmountCompleted[x]);
-                        w.Write(i.ObjectivesAmountNeeded[x]);
-                        w.Write(i.ObjectivesShownCompletedMessage[x]);
+                        w.Write(i.ObjectivesCompleted[x]);//
+                        w.Write(i.ObjectivesAmountCompleted[x]);//
+                        w.Write(i.ObjectivesAmountNeeded[x]);//
+                        w.Write(i.ObjectivesShownCompletedMessage[x]);//
                     }
-                    w.Write(i.IsPickupMission);
-                    w.Write(i.RanStartRewards);
+                    w.Write(i.IsPickupMission);//
+                    w.Write(i.RanStartRewards);//
                 }
                 w.Write(s.SectorDataBlocks.Count); //Console.WriteLine($"Writed: SectorDataBlock[].Length -> {s.SectorDataBlocks.Count}");
                 foreach (var i in s.SectorDataBlocks)

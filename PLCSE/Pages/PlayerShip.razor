@@ -71,7 +71,7 @@
 					<th>Decoded Name</th>
 				</thead>
 				<tbody>
-					@for(int i = 0; i < Save.CurrentSave.PS_NumComponents; i++)
+					@for(int i = _selected; i < _selectedMax; i++)
 					{
 						var ii = i;
 						<tr>
@@ -84,23 +84,53 @@
 				</tbody>
 			</MudSimpleTable>
 		</MudCardContent>
-		<MudCardMedia>
-			<MudButton Variant="Variant.Text" Color="Color.Primary"
-				StartIcon="@Icons.Filled.Refresh"
-				OnClick="@RebuildUI">
-				Rebuild "Decoded Name" column
+		<MudCardActions>
+			<MudButton Variant="Variant.Outlined" Color="Color.Primary"
+				StartIcon="@Icons.Filled.NavigateBefore"
+				OnClick="@((e) => UpdateSelected(-10))">
 			</MudButton>
-		</MudCardMedia>
+			<MudButton Variant="Variant.Text" Color="Color.Primary"
+				Disabled="true">
+				@_selected-@_selectedMax
+			</MudButton>
+			<MudButton Variant="Variant.Outlined" Color="Color.Primary"
+				StartIcon="@Icons.Filled.NavigateNext"
+				OnClick="@((e) => UpdateSelected(10))">
+			</MudButton>
+		</MudCardActions>
 	</MudCard>
 }
 @code {
+	int _selected = 0; //Save.CurrentSave.PS_NumComponents
+	int _selectedMax = 10;
+	void UpdateSelected(sbyte change)
+	{
+		var copyMin = _selected + change;
+		var copyMax = _selectedMax + change;
+		if (copyMin < 0)
+		{
+			copyMax -= copyMin;
+			copyMin -= copyMin;
+		}
+		if (copyMax > Save.CurrentSave.PS_NumComponents)
+		{
+			var rem = copyMax - Save.CurrentSave.PS_NumComponents;
+			copyMin -= rem;
+			copyMax -= rem;
+		}
+		if (copyMin < 0)
+			return;
+		_selected = copyMin;
+		_selectedMax = copyMax;
+	}
+
 	protected override void OnInitialized() => InvokeAsync(StateHasChanged);
-	async void RebuildUI() => await InvokeAsync(StateHasChanged);
+	//async void RebuildUI() => await InvokeAsync(StateHasChanged);
 	private async void BetterComponentEdit(int ii)
 	{
 		var param = new DialogParameters();
 		param.Add("target", ii);
 		await DialogService.Show<Dialogs.BetterComponentEdit>("Select New Component", param).Result;
-		RebuildUI();
+		//RebuildUI();
 	}
 }

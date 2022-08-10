@@ -163,8 +163,8 @@
                 w.Write(s.PlayerShipIsFlagged);//
                 w.Write(s.PlayerShipIsRevealed);//
                 w.Write(s.LongRangeCommsDisabled);//
-                w.Write(s.AlreadyAttemptedToStartPickupMissionID.Count);
-                foreach (var i in s.AlreadyAttemptedToStartPickupMissionID)
+                w.Write(s.AlreadyAttemptedToStartPickupMissionID.Count);//
+                foreach (var i in s.AlreadyAttemptedToStartPickupMissionID)//
                     w.Write(i);
                 w.Write(s.SelectedShipTypeID);
                 w.Write(s.ServerShipIDCounter);

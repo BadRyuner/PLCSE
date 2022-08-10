@@ -12,8 +12,14 @@
 				<MudItem xs="12" sm="4">  
 					<MudTextField @bind-Value="Save.CurrentSave.PS_ShipName" Label="Ship Name" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
 				</MudItem>
-				<MudItem xs="12" sm="4">  
-					<MudNumericField @bind-Value="Save.CurrentSave.PS_ShipType" Label="Ship Type" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+				<MudItem xs="12" sm="4">
+					<MudSelect @bind-Value="Save.CurrentSave.PS_ShipType" Label="Ship Type" Margin="Margin.Dense" Variant="Variant.Outlined">
+						@foreach(var i in Enum.GetValues<EShipType>())
+						{
+							var ii = i;
+							<MudSelectItem Value="@((int)ii)">@ii.ToString().Replace("E_", null).Replace('_', ' ')</MudSelectItem>
+						}
+					</MudSelect>
 				</MudItem>
 				<MudItem xs="12" sm="4">  
 					<MudNumericField @bind-Value="Save.CurrentSave.CurrentSectorID" Label="Current Sector ID" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
@@ -125,12 +131,10 @@
 	}
 
 	protected override void OnInitialized() => InvokeAsync(StateHasChanged);
-	//async void RebuildUI() => await InvokeAsync(StateHasChanged);
 	private async void BetterComponentEdit(int ii)
 	{
 		var param = new DialogParameters();
 		param.Add("target", ii);
 		await DialogService.Show<Dialogs.BetterComponentEdit>("Select New Component", param).Result;
-		//RebuildUI();
 	}
 }

@@ -6,11 +6,11 @@
         <MudStack>
             <MudPaper>
             <MudNavMenu Dense="true" Color="Color.Primary">
-                <MudNavLink OnClick="@((e) => nav.NavigateTo(GetNavStr("/")))">Main</MudNavLink>
-                <MudNavLink OnClick="@((e) => nav.NavigateTo(GetNavStr("/playership")))">Player Ship</MudNavLink>
-                <MudNavLink OnClick="@((e) => nav.NavigateTo(GetNavStr("/crewscience")))">Crew & Science</MudNavLink>
-                <MudNavLink OnClick="@((e) => nav.NavigateTo(GetNavStr("/galaxy")))">Galaxy</MudNavLink>
-                <MudNavLink OnClick="@((e) => nav.NavigateTo(GetNavStr("/missions")))">Missions</MudNavLink>
+                <MudNavLink OnClick="@((e) => nav.NavigateTo("/"))">Main</MudNavLink>
+                <MudNavLink OnClick="@((e) => nav.NavigateTo("/playership"))">Player Ship</MudNavLink>
+                <MudNavLink OnClick="@((e) => nav.NavigateTo("/crewscience"))">Crew & Science</MudNavLink>
+                <MudNavLink OnClick="@((e) => nav.NavigateTo("/galaxy"))">Galaxy</MudNavLink>
+                <MudNavLink OnClick="@((e) => nav.NavigateTo("/missions"))">Missions</MudNavLink>
             </MudNavMenu>
             </MudPaper>
             @Body
@@ -31,11 +31,4 @@
         mudTheme = new MudTheme() { };
         mudTheme.LayoutProperties.AppbarHeight = "0";
     }
-
-    string GetNavStr(string i) =>
-#if DEBUG
-        i;
-#else
-        "PLCSE" + i;
-#endif
 }

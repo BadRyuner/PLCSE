@@ -1,14 +1,15 @@
 ﻿@inherits LayoutComponentBase
+@inject NavigationManager nav
 
 <MudLayout>
     <MudMainContent>
         <MudStack>
             <MudPaper>
             <MudNavMenu Dense="true" Color="Color.Primary">
-                <MudNavLink Href="@mainpage">Main</MudNavLink>
-                <MudNavLink Href="@playership">Player Ship</MudNavLink>
-                <MudNavLink Href="@crewscience">Crew & Science</MudNavLink>
-                <MudNavLink Href="@galaxy">Galaxy</MudNavLink>
+                <MudNavLink OnClick="@((e) => nav.NavigateTo(GetNavStr("/")))">Main</MudNavLink>
+                <MudNavLink OnClick="@((e) => nav.NavigateTo(GetNavStr("/playership")))">Player Ship</MudNavLink>
+                <MudNavLink OnClick="@((e) => nav.NavigateTo(GetNavStr("/crewscience")))">Crew & Science</MudNavLink>
+                <MudNavLink OnClick="@((e) => nav.NavigateTo(GetNavStr("/galaxy")))">Galaxy</MudNavLink>
             </MudNavMenu>
             </MudPaper>
             @Body
@@ -21,17 +22,6 @@
 <MudSnackbarProvider/>
 
 @code{
-    #if DEBUG
-    string mainpage = "/main";
-    string crewscience = "/crewscience";
-    string playership = "/playership";
-    string galaxy = "/galaxy";
-    #else
-    string mainpage = "/PLCSE/main";
-    string playership = "/PLCSE/playership";
-    string crewscience = "/PLCSE/crewscience";
-    string galaxy = "/PLCSE/galaxy";
-    #endif
 
     MudTheme mudTheme;
 
@@ -40,4 +30,11 @@
         mudTheme = new MudTheme() { };
         mudTheme.LayoutProperties.AppbarHeight = "0";
     }
+
+    string GetNavStr(string i) =>
+#if DEBUG
+        i;
+#else
+        "PLCSE" + i;
+#endif
 }

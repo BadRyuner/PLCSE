@@ -1,0 +1,266 @@
+﻿@using System.Buffers.Text
+<MudDialog>
+	<DialogContent>
+		<MudGrid Spacing="1">
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="Version" Label="Version" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="NumberOfSectors" Label="Number Of Sectors" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="SecTypeScalar_GenStore" Label="Stores%" Margin="Margin.Dense" Variant="Variant.Outlined" /></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="SecTypeScalar_LongRangeWarp" Label="Long Range Warps%" Margin="Margin.Dense" Variant="Variant.Outlined" /></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="SecTypeScalar_Scrapyard" Label="Scrapyards%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="SecTypeScalar_Nebula" Label="Nebulas%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="ShipTypeScalar_Drones" Label="Drones%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="ShipTypeScalar_Crewed" Label="Ships%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="ShipTypeScalar_Special" Label="Special Ships%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="FactionInitialStrengthScalar_CU" Label="CU Start Str%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="FactionInitialStrengthScalar_WD" Label="WD Start Str%" Margin="Margin.Dense" Variant="Variant.Outlined" /></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="FactionInitialStrengthScalar_FB" Label="FB Start Str%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="FactionStrengthScalar_CU" Label="CU Str%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="FactionStrengthScalar_WD" Label="WD Str%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="FactionStrengthScalar_FB" Label="FB Str%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="InfectionInitialStrength" Label="Infection Start Str%" Margin="Margin.Dense" Variant="Variant.Outlined" /></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="InfectionStrength" Label="Infection Str%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="BeaconCountScalar" Label="Beacons%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="BountyHunterScalar" Label="Bounty Hunters%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="ChaosScalar" Label="Chaos Boost%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="DroneModifierScalar" Label="Drone Boost%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="EnemyShipPowerScalar" Label="Enemy Ships Boost%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="MoonCountScalar" Label="Moon Count%" Margin="Margin.Dense" Variant="Variant.Outlined" /></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="EnemyRespawnTimerScalar" Label="Enemy Ship Respawn%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="CustomSeed" Label="Custom Seed" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="Mod_ShieldChargeRate_PS" Label="Shield Charge PS%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="Mod_ShieldChargeRate_Other" Label="Shield Charge Oth%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="Mod_WarpChargeRate_PS" Label="Warp Charge PS%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="Mod_WarpChargeRate_Other" Label="Warp Charge Oth%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="Mod_ThrusterBoost_PS" Label="Thruster Boost PS%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="Mod_ThrusterBoost_Other" Label="Thruster Boost Oth%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="Mod_ReactorBoost_PS" Label="Reactor Boost PS%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="Mod_ReactorBoost_Other" Label="Reactor Boost Oth%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="Mod_EnergyDamageBoost_PS" Label="En.Dmg Boost PS%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="Mod_EnergyDamageBoost_Other" Label="En.Dmg Boost Oth%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="Mod_PhysicalDamageBoost_PS" Label="Phys.Dmg Boost PS%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="Mod_PhysicalDamageBoost_Other" Label="Phys.Dmg Boost Oth%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="EnemyRespawnTimerScalar" Label="Enemy Respawn Rate%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="EnemyBackupRate" Label="Enemy Backup Rate%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="SecTypeScalar_Graveyard" Label="Graveyards%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="SecTypeScalar_Frontlines" Label="Frontlines PS%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="SecTypeScalar_AsteroidField" Label="Asteroid Field PS%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+			<MudItem xs="15" sm="3"><MudNumericField @bind-Value="SecTypeScalar_Minefield" Label="Minefield%" Margin="Margin.Dense" Variant="Variant.Outlined"/></MudItem>
+		</MudGrid>
+	</DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+	[CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+	protected override void OnInitialized()
+	{
+		using var mem = new MemoryStream(Convert.FromBase64String(Save.CurrentSave.GalaxyGenerationSettingsData));
+		using var reader = new BinaryReader(mem);
+		int num = reader.ReadInt32();
+		this.NumberOfSectors = reader.ReadInt32();
+		this.SecTypeScalar_GenStore = this.GetRoundedFloat(reader.ReadSingle());
+		this.SecTypeScalar_LongRangeWarp = this.GetRoundedFloat(reader.ReadSingle());
+		this.SecTypeScalar_Scrapyard = this.GetRoundedFloat(reader.ReadSingle());
+		this.SecTypeScalar_Nebula = this.GetRoundedFloat(reader.ReadSingle());
+		this.ShipTypeScalar_Drones = this.GetRoundedFloat(reader.ReadSingle());
+		this.ShipTypeScalar_Crewed = this.GetRoundedFloat(reader.ReadSingle());
+		this.ShipTypeScalar_Special = this.GetRoundedFloat(reader.ReadSingle());
+		this.FactionInitialStrengthScalar_CU = this.GetRoundedFloat(reader.ReadSingle());
+		this.FactionInitialStrengthScalar_WD = this.GetRoundedFloat(reader.ReadSingle());
+		this.FactionInitialStrengthScalar_FB = this.GetRoundedFloat(reader.ReadSingle());
+		this.FactionStrengthScalar_CU = this.GetRoundedFloat(reader.ReadSingle());
+		this.FactionStrengthScalar_WD = this.GetRoundedFloat(reader.ReadSingle());
+		this.FactionStrengthScalar_FB = this.GetRoundedFloat(reader.ReadSingle());
+		this.InfectionInitialStrength = this.GetRoundedFloat(reader.ReadSingle());
+		this.InfectionStrength = this.GetRoundedFloat(reader.ReadSingle());
+		this.BeaconCountScalar = this.GetRoundedFloat(reader.ReadSingle());
+		this.BountyHunterScalar = this.GetRoundedFloat(reader.ReadSingle());
+		this.ChaosScalar = this.GetRoundedFloat(reader.ReadSingle());
+		this.DroneModifierScalar = this.GetRoundedFloat(reader.ReadSingle());
+		this.EnemyShipPowerScalar = this.GetRoundedFloat(reader.ReadSingle());
+		this.MoonCountScalar = this.GetRoundedFloat(reader.ReadSingle());
+		this.EnemyRespawnTimerScalar = this.GetRoundedFloat(reader.ReadSingle());
+		this.CustomSeed = reader.ReadInt32();
+		if (num >= 2)
+		{
+			this.Mod_ShieldChargeRate_PS = this.GetRoundedFloat(reader.ReadSingle());
+			this.Mod_ShieldChargeRate_Other = this.GetRoundedFloat(reader.ReadSingle());
+			this.Mod_WarpChargeRate_PS = this.GetRoundedFloat(reader.ReadSingle());
+			this.Mod_WarpChargeRate_Other = this.GetRoundedFloat(reader.ReadSingle());
+			this.Mod_ThrusterBoost_PS = this.GetRoundedFloat(reader.ReadSingle());
+			this.Mod_ThrusterBoost_Other = this.GetRoundedFloat(reader.ReadSingle());
+			this.Mod_ReactorBoost_PS = this.GetRoundedFloat(reader.ReadSingle());
+			this.Mod_ReactorBoost_Other = this.GetRoundedFloat(reader.ReadSingle());
+			this.Mod_EnergyDamageBoost_PS = this.GetRoundedFloat(reader.ReadSingle());
+			this.Mod_EnergyDamageBoost_Other = this.GetRoundedFloat(reader.ReadSingle());
+			this.Mod_PhysicalDamageBoost_PS = this.GetRoundedFloat(reader.ReadSingle());
+			this.Mod_PhysicalDamageBoost_Other = this.GetRoundedFloat(reader.ReadSingle());
+		}
+		if (num >= 3)
+		{
+			this.MaxChaosLevel = this.GetRoundedFloat(reader.ReadSingle());
+		}
+		if (num >= 4)
+		{
+			this.SecTypeScalar_Graveyard = this.GetRoundedFloat(reader.ReadSingle());
+			this.SecTypeScalar_Frontlines = this.GetRoundedFloat(reader.ReadSingle());
+			this.SecTypeScalar_AsteroidField = this.GetRoundedFloat(reader.ReadSingle());
+			this.SecTypeScalar_Minefield = this.GetRoundedFloat(reader.ReadSingle());
+			this.DroneModifierScalar = this.GetRoundedFloat(reader.ReadSingle());
+		}
+		if (num >= 5)
+		{
+			this.EnemyBackupRate = this.GetRoundedFloat(reader.ReadSingle());
+		}
+	}
+
+	void Submit()
+	{
+		using var mem = new MemoryStream();
+		using var writer = new BinaryWriter(mem);
+
+		writer.Write(this.Version);
+		writer.Write(this.NumberOfSectors);
+		writer.Write(this.GetRoundedFloat(this.SecTypeScalar_GenStore));
+		writer.Write(this.GetRoundedFloat(this.SecTypeScalar_LongRangeWarp));
+		writer.Write(this.GetRoundedFloat(this.SecTypeScalar_Scrapyard));
+		writer.Write(this.GetRoundedFloat(this.SecTypeScalar_Nebula));
+		writer.Write(this.GetRoundedFloat(this.ShipTypeScalar_Drones));
+		writer.Write(this.GetRoundedFloat(this.ShipTypeScalar_Crewed));
+		writer.Write(this.GetRoundedFloat(this.ShipTypeScalar_Special));
+		writer.Write(this.GetRoundedFloat(this.FactionInitialStrengthScalar_CU));
+		writer.Write(this.GetRoundedFloat(this.FactionInitialStrengthScalar_WD));
+		writer.Write(this.GetRoundedFloat(this.FactionInitialStrengthScalar_FB));
+		writer.Write(this.GetRoundedFloat(this.FactionStrengthScalar_CU));
+		writer.Write(this.GetRoundedFloat(this.FactionStrengthScalar_WD));
+		writer.Write(this.GetRoundedFloat(this.FactionStrengthScalar_FB));
+		writer.Write(this.GetRoundedFloat(this.InfectionInitialStrength));
+		writer.Write(this.GetRoundedFloat(this.InfectionStrength));
+		writer.Write(this.GetRoundedFloat(this.BeaconCountScalar));
+		writer.Write(this.GetRoundedFloat(this.BountyHunterScalar));
+		writer.Write(this.GetRoundedFloat(this.ChaosScalar));
+		writer.Write(this.GetRoundedFloat(this.DroneModifierScalar));
+		writer.Write(this.GetRoundedFloat(this.EnemyShipPowerScalar));
+		writer.Write(this.GetRoundedFloat(this.MoonCountScalar));
+		writer.Write(this.GetRoundedFloat(this.EnemyRespawnTimerScalar));
+		writer.Write(this.CustomSeed);
+		writer.Write(this.GetRoundedFloat(this.Mod_ShieldChargeRate_PS));
+		writer.Write(this.GetRoundedFloat(this.Mod_ShieldChargeRate_Other));
+		writer.Write(this.GetRoundedFloat(this.Mod_WarpChargeRate_PS));
+		writer.Write(this.GetRoundedFloat(this.Mod_WarpChargeRate_Other));
+		writer.Write(this.GetRoundedFloat(this.Mod_ThrusterBoost_PS));
+		writer.Write(this.GetRoundedFloat(this.Mod_ThrusterBoost_Other));
+		writer.Write(this.GetRoundedFloat(this.Mod_ReactorBoost_PS));
+		writer.Write(this.GetRoundedFloat(this.Mod_ReactorBoost_Other));
+		writer.Write(this.GetRoundedFloat(this.Mod_EnergyDamageBoost_PS));
+		writer.Write(this.GetRoundedFloat(this.Mod_EnergyDamageBoost_Other));
+		writer.Write(this.GetRoundedFloat(this.Mod_PhysicalDamageBoost_PS));
+		writer.Write(this.GetRoundedFloat(this.Mod_PhysicalDamageBoost_Other));
+		writer.Write(this.GetRoundedFloat(this.MaxChaosLevel));
+		writer.Write(this.GetRoundedFloat(this.SecTypeScalar_Graveyard));
+		writer.Write(this.GetRoundedFloat(this.SecTypeScalar_Frontlines));
+		writer.Write(this.GetRoundedFloat(this.SecTypeScalar_AsteroidField));
+		writer.Write(this.GetRoundedFloat(this.SecTypeScalar_Minefield));
+		writer.Write(this.GetRoundedFloat(this.DroneModifierScalar));
+		writer.Write(this.GetRoundedFloat(this.EnemyBackupRate));
+		Save.CurrentSave.GalaxyGenerationSettingsData = Convert.ToBase64String(mem.ToArray());
+		MudDialog.Close(DialogResult.Ok(true));
+	}
+	void Cancel() => MudDialog.Cancel();
+
+	private float GetRoundedFloat(float inFloat)
+	{
+		//return (float)MathF.Round(inFloat * 10f) * 0.1f;
+		return inFloat;
+	}
+
+	public int Version;
+
+	public int NumberOfSectors;
+
+	public float SecTypeScalar_GenStore;
+
+	public float SecTypeScalar_LongRangeWarp;
+
+	public float SecTypeScalar_Scrapyard;
+
+	public float SecTypeScalar_Nebula;
+
+	public float ShipTypeScalar_Drones;
+
+	public float ShipTypeScalar_Crewed;
+
+	public float ShipTypeScalar_Special;
+
+	public float FactionInitialStrengthScalar_CU;
+
+	public float FactionInitialStrengthScalar_WD;
+
+	public float FactionInitialStrengthScalar_FB;
+
+	public float FactionStrengthScalar_CU;
+
+	public float FactionStrengthScalar_WD;
+
+	public float FactionStrengthScalar_FB;
+
+	public float InfectionInitialStrength;
+
+	public float InfectionStrength;
+
+	public float BeaconCountScalar;
+
+	public float BountyHunterScalar;
+
+	public float ChaosScalar;
+
+	public float DroneModifierScalar;
+
+	public float EnemyShipPowerScalar;
+
+	public float MoonCountScalar;
+
+	public float EnemyRespawnTimerScalar;
+
+	public int CustomSeed;
+
+	public float Mod_ShieldChargeRate_PS;
+
+	public float Mod_ShieldChargeRate_Other;
+
+	public float Mod_WarpChargeRate_PS;
+
+	public float Mod_WarpChargeRate_Other;
+
+	public float Mod_ThrusterBoost_PS;
+
+	public float Mod_ThrusterBoost_Other;
+
+	public float Mod_ReactorBoost_PS;
+
+	public float Mod_ReactorBoost_Other;
+
+	public float Mod_EnergyDamageBoost_PS;
+
+	public float Mod_EnergyDamageBoost_Other;
+
+	public float Mod_PhysicalDamageBoost_PS;
+
+	public float Mod_PhysicalDamageBoost_Other;
+
+	public float MaxChaosLevel;
+
+	public float EnemyBackupRate;
+
+	public float SecTypeScalar_Graveyard;
+
+	public float SecTypeScalar_Frontlines;
+
+	public float SecTypeScalar_AsteroidField;
+
+	public float SecTypeScalar_Minefield;
+}

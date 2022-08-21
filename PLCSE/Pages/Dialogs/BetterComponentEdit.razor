@@ -31,7 +31,14 @@
         <MudNumericField @bind-Value="@ware.subtype" Label="SubType" Margin="Margin.Dense" Variant="Variant.Outlined"/>
         <MudNumericField @bind-Value="@ware.subtypedata" Label="SubType Data" Margin="Margin.Dense" Variant="Variant.Outlined"/>
         <MudNumericField @bind-Value="@ware.level" Label="Level" Margin="Margin.Dense" Variant="Variant.Outlined"/>
-        <MudNumericField @bind-Value="@ware.visualSlotType" Label="Visual Slot Type" Margin="Margin.Dense" Variant="Variant.Outlined"/>
+        <!-- <MudNumericField @bind-Value="@ware.visualSlotType" Label="Visual Slot Type" Margin="Margin.Dense" Variant="Variant.Outlined"/> -->
+        <MudSelect @bind-Value="@ware.visualSlotType" Label="Slot" Margin="Margin.Dense" Variant="Variant.Outlined">
+            @foreach (var i in Enum.GetValues<ESlotType>())
+            {
+	            var ii = i;
+                <MudSelectItem Value="@((uint)ii)">@ii.ToString().Replace('_', ' ')</MudSelectItem>
+            }
+        </MudSelect>
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>

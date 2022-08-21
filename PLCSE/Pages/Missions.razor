@@ -2,22 +2,25 @@
 @inject HttpClient _client;
 @inject IDialogService DialogService;
 
-<MudCard>
-	<MudCardHeader>
-		<MudText Typo="Typo.h6">Already Attempted To Start Pickup Mission ID</MudText>
-	</MudCardHeader>
-	<MudCardContent>
-		<MudTextField @bind-Value="Save.CurrentSave.AlreadyAttemptedToStartPickupMissionID" Converter="@MyConverters.IntList" Margin="Margin.Dense" Variant="Variant.Outlined" />
-	</MudCardContent>
-</MudCard>
+@if (Save.CurrentSave != null)
+{
 
-<MudCard>
-	<MudCardHeader>
-		<MudText Typo="Typo.h6">Missions Info</MudText>
-	</MudCardHeader>
-	<MudCardContent>
-		<MudSimpleTable Bordered="true" Dense="true" Outlined="true">
-			<thead>
+	<MudCard>
+		<MudCardHeader>
+			<MudText Typo="Typo.h6">Already Attempted To Start Pickup Mission ID</MudText>
+		</MudCardHeader>
+		<MudCardContent>
+			<MudTextField @bind-Value="Save.CurrentSave.AlreadyAttemptedToStartPickupMissionID" Converter="@MyConverters.IntList" Margin="Margin.Dense" Variant="Variant.Outlined" />
+		</MudCardContent>
+	</MudCard>
+
+	<MudCard>
+		<MudCardHeader>
+			<MudText Typo="Typo.h6">Missions Info</MudText>
+		</MudCardHeader>
+		<MudCardContent>
+			<MudSimpleTable Bordered="true" Dense="true" Outlined="true">
+				<thead>
 				<th>Mission ID</th>
 				<th>Mission Name</th>
 				<th>Abandoned</th>
@@ -27,47 +30,53 @@
 				<th>Objectives Shown Completed Message</th>
 				<th>Is Pickup Mission</th>
 				<th>Ran Start Rewards</th>
-			</thead>
-			<tbody>
-				@for (int i = _selected; i < _selectedMax; i++)
+				<th>Delete</th>
+				</thead>
+				<tbody>
+				@if (Save.CurrentSave.MissionDataBlocks.Count > 0)
 				{
-					var ii = i;
-					var mdb = PLCSE.Save.CurrentSave.MissionDataBlocks[ii];
-					<tr>
-						<td><MudNumericField @bind-Value="mdb.MissionID" Margin="Margin.Dense" Variant="Variant.Outlined" /></td>
-						<td><MudText>@missions.FirstOrDefault(m => m.Id == mdb.MissionID)?.Name</MudText></td>
-						<td><MudCheckBox @bind-Checked="mdb.Abandoned" /></td>
-						<td><MudCheckBox @bind-Checked="mdb.Ended" /></td>
-						<td><MudNumericField Converter="@MyConverters.IntArr" @bind-Value="mdb.ObjectivesAmountCompleted" Margin="Margin.Dense" Variant="Variant.Outlined" /></td>
-						<td><MudNumericField Converter="@MyConverters.IntArr"  @bind-Value="mdb.ObjectivesAmountNeeded" Margin="Margin.Dense" Variant="Variant.Outlined" /></td>
-						<td><MudNumericField Converter="@MyConverters.BoolArr" @bind-Value="mdb.ObjectivesShownCompletedMessage" Margin="Margin.Dense" Variant="Variant.Outlined" /></td>
-						<td><MudCheckBox @bind-Checked="mdb.IsPickupMission" /></td>
-						<td><MudCheckBox @bind-Checked="mdb.RanStartRewards" /></td>
-					</tr>
+					@for (int i = _selected; i < _selectedMax; i++)
+					{
+						var ii = i;
+						var mdb = PLCSE.Save.CurrentSave.MissionDataBlocks[ii];
+						<tr>
+							<td><MudNumericField @bind-Value="mdb.MissionID" Margin="Margin.Dense" Variant="Variant.Outlined"/></td>
+							<td><MudText>@missions.FirstOrDefault(m => m.Id == mdb.MissionID)?.Name</MudText></td>
+							<td><MudCheckBox @bind-Checked="mdb.Abandoned"/></td>
+							<td><MudCheckBox @bind-Checked="mdb.Ended"/></td>
+							<td><MudNumericField Converter="@MyConverters.IntArr" @bind-Value="mdb.ObjectivesAmountCompleted" Margin="Margin.Dense" Variant="Variant.Outlined"/></td>
+							<td><MudNumericField Converter="@MyConverters.IntArr" @bind-Value="mdb.ObjectivesAmountNeeded" Margin="Margin.Dense" Variant="Variant.Outlined"/></td>
+							<td><MudNumericField Converter="@MyConverters.BoolArr" @bind-Value="mdb.ObjectivesShownCompletedMessage" Margin="Margin.Dense" Variant="Variant.Outlined"/></td>
+							<td><MudCheckBox @bind-Checked="mdb.IsPickupMission"/></td>
+							<td><MudCheckBox @bind-Checked="mdb.RanStartRewards"/></td>
+							<td><MudChip Variant="Variant.Text" Color="Color.Warning" OnClick="() => { Save.CurrentSave.MissionDataBlocks.RemoveAt(ii); UpdateSelected(0); }">X</MudChip></td>
+						</tr>
+					}
 				}
-			</tbody>
-		</MudSimpleTable>
-	</MudCardContent>
-	<MudCardActions>
-		<MudButton Variant="Variant.Outlined" Color="Color.Primary"
-			StartIcon="@Icons.Filled.NavigateBefore"
-			OnClick="@((e) => UpdateSelected(-10))">
-		</MudButton>
-		<MudButton Variant="Variant.Text" Color="Color.Primary"
-			Disabled="true">
-			@_selected-@_selectedMax
-		</MudButton>
-		<MudButton Variant="Variant.Outlined" Color="Color.Primary"
-			StartIcon="@Icons.Filled.NavigateNext"
-			OnClick="@((e) => UpdateSelected(10))">
-		</MudButton>
-		<MudButton Variant="Variant.Text" Color="Color.Primary"
+				</tbody>
+			</MudSimpleTable>
+		</MudCardContent>
+		<MudCardActions>
+			<MudButton Variant="Variant.Outlined" Color="Color.Primary"
+				   StartIcon="@Icons.Filled.NavigateBefore"
+				   OnClick="@((e) => UpdateSelected(-10))">
+			</MudButton>
+			<MudButton Variant="Variant.Text" Color="Color.Primary"
+				   Disabled="true">
+				@_selected-@_selectedMax
+			</MudButton>
+			<MudButton Variant="Variant.Outlined" Color="Color.Primary"
+				   StartIcon="@Icons.Filled.NavigateNext"
+				   OnClick="@((e) => UpdateSelected(10))">
+			</MudButton>
+			<MudButton Variant="Variant.Text" Color="Color.Primary"
 				   StartIcon="@Icons.Filled.Add"
-				   OnClick="@((e) => DialogService.Show<Dialogs.AddNewMission>("Select New Mission"))">
-				   Add New Mission
-		</MudButton>
-	</MudCardActions>
-</MudCard>
+				   OnClick="@(async (e) => { await DialogService.Show<Dialogs.AddNewMission>("Select New Mission").Result; await InvokeAsync(StateHasChanged); })">
+				Add New Mission
+			</MudButton>
+		</MudCardActions>
+	</MudCard>
+}
 
 @code {
 	public class MissionData {
@@ -102,13 +111,22 @@
 			copyMax -= copyMin;
 			copyMin -= copyMin;
 		}
+		var diff = Save.CurrentSave.MissionDataBlocks.Count - (copyMax - copyMin);
+		if (diff > 0)
+		{
+			while (copyMax - copyMin < 10 && diff != 0)
+			{
+				copyMax++;
+				diff--;
+			}
+		}
 		if (copyMax > Save.CurrentSave.MissionDataBlocks.Count)
 		{
 			var rem = copyMax - Save.CurrentSave.MissionDataBlocks.Count;
-			copyMin -= rem;
+			//copyMin -= rem;
 			copyMax -= rem;
 		}
-		if (copyMin < 0)
+		if (copyMin < 0 || copyMin >= Save.CurrentSave.MissionDataBlocks.Count)
 			return;
 		_selected = copyMin;
 		_selectedMax = copyMax;

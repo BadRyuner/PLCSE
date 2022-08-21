@@ -1,11 +1,9 @@
 ﻿@page "/playership"
 @inject IDialogService DialogService
 
-@if(Save.CurrentSave != null)
-{
-	<MudCard>
+<MudCard>
 		<MudCardHeader>
-			<MudText Typo="Typo.h6" Align="Align.Center">Player Ship</MudText>
+		<MudText Typo="Typo.h6" Align="Align.Center">Player Ship</MudText>
 		</MudCardHeader>
 		<MudCardContent>
 			<MudGrid>
@@ -14,11 +12,11 @@
 				</MudItem>
 				<MudItem xs="12" sm="4">
 					<MudSelect @bind-Value="Save.CurrentSave.PS_ShipType" Label="Ship Type" Margin="Margin.Dense" Variant="Variant.Outlined">
-						@foreach(var i in Enum.GetValues<EShipType>())
-						{
-							var ii = i;
-							<MudSelectItem Value="@((int)ii)">@ii.ToString().Replace("E_", null).Replace('_', ' ')</MudSelectItem>
-						}
+					@foreach (var i in Enum.GetValues<EShipType>())
+					{
+						var ii = i;
+								<MudSelectItem Value="@((int)ii)">@ii.ToString().Replace("E_", null).Replace('_', ' ')</MudSelectItem>
+					}
 					</MudSelect>
 				</MudItem>
 				<MudItem xs="12" sm="4">  
@@ -64,50 +62,56 @@
 		</MudCardContent>
 	</MudCard>
 
-	<MudCard>
-		<MudCardHeader>
-			<MudText Typo="Typo.h6">Components</MudText>
-		</MudCardHeader>
-		<MudCardContent>
-			<MudSimpleTable Bordered="true" Dense="true" Outlined="true">
-				<thead>
-					<th>Hash</th>
-					<th>Sort ID</th>
-					<th>Subtype Data</th>
-					<th>Decoded Name</th>
-				</thead>
-				<tbody>
-					@for(int i = _selected; i < _selectedMax; i++)
-					{
-						var ii = i;
-						<tr>
-							<td><MudNumericField @bind-Value="PLCSE.Save.CurrentSave.PS_ComponentHash[ii]" Margin="Margin.Dense" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Outlined.Edit" OnAdornmentClick="@(() => BetterComponentEdit(ii))"/></td>
-							<td><MudNumericField @bind-Value="PLCSE.Save.CurrentSave.PS_ComponentSortID[ii]" Margin="Margin.Dense" Variant="Variant.Outlined"/></td>
-							<td><MudNumericField @bind-Value="PLCSE.Save.CurrentSave.PS_SubTypeData[ii]" Margin="Margin.Dense" Variant="Variant.Outlined"/></td>
-							<td>@Helpers.DecodeNameForComponent(PLCSE.Save.CurrentSave.PS_ComponentHash[ii])</td>
-						</tr>
-					}
-				</tbody>
-			</MudSimpleTable>
-		</MudCardContent>
-		<MudCardActions>
-			<MudButton Variant="Variant.Outlined" Color="Color.Primary"
-				StartIcon="@Icons.Filled.NavigateBefore"
-				OnClick="@((e) => UpdateSelected(-10))">
-			</MudButton>
-			<MudButton Variant="Variant.Text" Color="Color.Primary"
-				Disabled="true">
-				@_selected-@_selectedMax
-			</MudButton>
-			<MudButton Variant="Variant.Outlined" Color="Color.Primary"
-				StartIcon="@Icons.Filled.NavigateNext"
-				OnClick="@((e) => UpdateSelected(10))">
-			</MudButton>
-		</MudCardActions>
-	</MudCard>
-}
+<MudCard>
+	<MudCardHeader>
+		<MudText Typo="Typo.h6">Components</MudText>
+	</MudCardHeader>
+	<MudCardContent>
+		<MudSimpleTable Bordered="true" Dense="true" Outlined="true">
+			<thead>
+			<th>Hash</th>
+			<th>Sort ID</th>
+			<th>Subtype Data</th>
+			<th>Decoded Name</th>
+			<th>Delete</th>
+			</thead>
+			<tbody>
+			@for (int i = _selected; i < _selectedMax; i++)
+			{
+				var ii = i;
+				<tr>
+					<td><MudNumericField @bind-Value="PLCSE.Save.CurrentSave.PS_ComponentHash[ii]" Margin="Margin.Dense" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Outlined.Edit" OnAdornmentClick="@(() => BetterComponentEdit(ii))"/></td>
+					<td><MudNumericField @bind-Value="PLCSE.Save.CurrentSave.PS_ComponentSortID[ii]" Margin="Margin.Dense" Variant="Variant.Outlined"/></td>
+					<td><MudNumericField @bind-Value="PLCSE.Save.CurrentSave.PS_SubTypeData[ii]" Margin="Margin.Dense" Variant="Variant.Outlined"/></td>
+					<td>@Helpers.DecodeNameForComponent(PLCSE.Save.CurrentSave.PS_ComponentHash[ii])</td>
+					<td><MudChip Variant="Variant.Text" Color="Color.Warning" OnClick="() => { Save.CurrentSave.PS_ComponentHash.RemoveAt(ii); Save.CurrentSave.PS_ComponentSortID.RemoveAt(ii); Save.CurrentSave.PS_SubTypeData.RemoveAt(ii); UpdateSelected(0); }">X</MudChip></td>
+				</tr>
+			}
+			</tbody>
+		</MudSimpleTable>
+	</MudCardContent>
+	<MudCardActions>
+		<MudButton Variant="Variant.Outlined" Color="Color.Primary"
+		           StartIcon="@Icons.Filled.NavigateBefore"
+		           OnClick="@((e) => UpdateSelected(-10))">
+		</MudButton>
+		<MudButton Variant="Variant.Text" Color="Color.Primary"
+		           Disabled="true">
+			@_selected-@_selectedMax
+		</MudButton>
+		<MudButton Variant="Variant.Outlined" Color="Color.Primary"
+		           StartIcon="@Icons.Filled.NavigateNext"
+		           OnClick="@((e) => UpdateSelected(10))">
+		</MudButton>
+		<MudButton Variant="Variant.Text" Color="Color.Primary"
+				   OnClick="() => { Save.CurrentSave.PS_ComponentHash.Insert(0, 0); Save.CurrentSave.PS_ComponentSortID.Insert(0, 0); Save.CurrentSave.PS_SubTypeData.Insert(0, 0); Save.CurrentSave.PS_NumComponents++; InvokeAsync(StateHasChanged); }">
+			Add New
+		</MudButton>
+	</MudCardActions>
+</MudCard>
+
 @code {
-	int _selected = 0; //Save.CurrentSave.PS_NumComponents
+	int _selected = 0;
 	int _selectedMax = 10;
 	void UpdateSelected(sbyte change)
 	{
@@ -124,7 +128,7 @@
 			copyMin -= rem;
 			copyMax -= rem;
 		}
-		if (copyMin < 0)
+		if (copyMin < 0 || copyMax - copyMin < 10)
 			return;
 		_selected = copyMin;
 		_selectedMax = copyMax;
@@ -136,5 +140,6 @@
 		var param = new DialogParameters();
 		param.Add("target", ii);
 		await DialogService.Show<Dialogs.BetterComponentEdit>("Select New Component", param).Result;
+		await InvokeAsync(StateHasChanged);
 	}
 }

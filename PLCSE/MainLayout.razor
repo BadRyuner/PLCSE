@@ -1,41 +1,93 @@
-﻿@inherits LayoutComponentBase
+﻿@using Microsoft.AspNetCore.Components.Forms
+@inherits LayoutComponentBase
 @inject NavigationManager nav
+@inject BlazorDownloadFile.IBlazorDownloadFileService BlazorDownloadFileService
 
 <MudLayout>
-    <MudMainContent>
-        <MudStack>
-            <MudPaper>
-            <MudNavMenu Dense="true" Color="Color.Primary">
-                <MudNavLink OnClick="@((e) => nav.NavigateTo(GetNavStr("/")))">Main</MudNavLink>
-                <MudNavLink OnClick="@((e) => nav.NavigateTo(GetNavStr("/playership")))">Player Ship</MudNavLink>
-                <MudNavLink OnClick="@((e) => nav.NavigateTo(GetNavStr("/crewscience")))">Crew & Science</MudNavLink>
-                <MudNavLink OnClick="@((e) => nav.NavigateTo(GetNavStr("/galaxy")))">Galaxy</MudNavLink>
-                <MudNavLink OnClick="@((e) => nav.NavigateTo(GetNavStr("/missions")))">Missions</MudNavLink>
-            </MudNavMenu>
-            </MudPaper>
-            @Body
-        </MudStack>
-    </MudMainContent>
+	<MudAppBar>
+		<MudButton OnClick="@(() => nav.NavigateTo(GetNavStr("/")))">Main</MudButton>
+		<MudButton OnClick="@(() => nav.NavigateTo(GetNavStr("/playership")))">Player Ship</MudButton>
+		<MudButton OnClick="@(() => nav.NavigateTo(GetNavStr("/crewscience")))">Crew & Science</MudButton>
+		<MudButton OnClick="@(() => nav.NavigateTo(GetNavStr("/galaxy")))">Galaxy</MudButton>
+		<MudButton OnClick="@(() => nav.NavigateTo(GetNavStr("/missions")))">Missions</MudButton>
+		<MudIconButton OnClick="@(() => nav.NavigateTo("https://github.com/BadRyuner/PLCSE"))" Icon="@Icons.Custom.Brands.GitHub"></MudIconButton>
+	</MudAppBar>
+	<MudMainContent>
+		<MudStack>
+			<MudCard>
+				<MudCardHeader>
+					<MudText Typo="Typo.h6" Align="Align.Center">Welcome to the ugliest save editor for Pulsar: Lost Colony!</MudText>
+				</MudCardHeader>
+				<MudCardContent>
+					<InputFile id="fileInput" OnChange="@LoadSaveFile" hidden />
+					@if (Save.CurrentSave == null)
+					{
+						<MudText Typo="Typo.body2">To get started, select the save by clicking the button below!</MudText>
+					}
+					else
+					{
+						<MudText Typo="Typo.body2">Buttons to load another save or save the current one:</MudText>
+					}
+				</MudCardContent>
+				<MudCardActions>
+					<MudButton HtmlTag="label"
+					           Variant="Variant.Text" Color="Color.Primary"
+					           StartIcon="@Icons.Filled.FileUpload"
+					           for="fileInput">
+						Select Save
+					</MudButton>
+					@if(Save.CurrentSave != null)
+					{
+						<MudButton Variant="Variant.Text" Color="Color.Primary"
+						           StartIcon="@Icons.Filled.FileDownload"
+						           OnClick="@SendSave">
+							Download Save
+						</MudButton>
+					}
+					<MudButton Variant="Variant.Text" Color="Color.Primary"
+					           StartIcon="@Icons.Filled.Refresh"
+					           OnClick="@ForceUpdate">
+						Rebuild UI
+					</MudButton>
+				</MudCardActions>
+			</MudCard>
+			@if (Save.CurrentSave != null)
+			{
+				<MudStack>
+					@Body
+				</MudStack>
+			}
+		</MudStack>
+	</MudMainContent>
 </MudLayout>
 
-<MudThemeProvider IsDarkMode="true" Theme="@mudTheme"/>
-<MudDialogProvider/>
+<MudThemeProvider IsDarkMode="true"/>
+<MudDialogProvider MaxWidth="MaxWidth.Medium"/>
 <MudSnackbarProvider/>
 
 @code{
-
-    MudTheme mudTheme;
-
-    protected override void OnInitialized()
-    {
-        mudTheme = new MudTheme() { };
-        mudTheme.LayoutProperties.AppbarHeight = "0";
-    }
-
     string GetNavStr(string i) =>
 #if DEBUG
         i;
 #else
         "/PLCSE" + i;
 #endif
+
+	private async void LoadSaveFile(InputFileChangeEventArgs e)
+	{
+		byte[] bytes = new byte[e.File.Size];
+		await e.File.OpenReadStream(1048576 /* 1 kb */).ReadAsync(bytes, 0, (int)e.File.Size);
+		Save.CurrentSave = Save.LoadFromFile(new BinaryReader(new MemoryStream(bytes)), e.File.Name);
+		await this.InvokeAsync(this.StateHasChanged);
+	}
+
+	private async void SendSave()
+	{
+		await BlazorDownloadFileService.DownloadFile(Save.CurrentSave.FileName, Save.SaveToBytes(), "application/octet-stream");
+	}
+
+	private async void ForceUpdate()
+	{
+		await this.InvokeAsync(this.StateHasChanged);
+	}
 }

@@ -1,21 +1,50 @@
-﻿namespace PLCSE;
+﻿using System.Runtime.CompilerServices;
+
+namespace PLCSE;
 
 public static class MyConverters
 {
-	public static MudBlazor.Converter<List<int>> IntList = new MudBlazor.Converter<List<int>>()
-	{
-		SetFunc = l => l.Count == 0 ? string.Empty : l.Select(i => $"{i};").Aggregate((to, add) => to + add),
-		GetFunc = str => str.Replace(" ", null).Split(';', StringSplitOptions.RemoveEmptyEntries).Select(i => int.Parse(i)).ToList()
-	};
+	public static IntListConverter ILC = new IntListConverter();
+	public static IntArrConverter IAC = new IntArrConverter();
+	public static BoolArrConverter BAC = new BoolArrConverter();
 
-	public static MudBlazor.Converter<int[]> IntArr = new MudBlazor.Converter<int[]>()
+	public class IntListConverter : MudBlazor.DefaultConverter<List<int>>
 	{
-		SetFunc = l => l.Length == 0 ? string.Empty : l.Select(i => $"{i};").Aggregate((to, add) => to + add),
-		GetFunc = str => str.Replace(" ", null).Split(';', StringSplitOptions.RemoveEmptyEntries).Select(i => int.Parse(i)).ToArray()
-	};
-	public static MudBlazor.Converter<bool[]> BoolArr = new MudBlazor.Converter<bool[]>()
+		protected override List<int> ConvertFromString(string str) =>
+			string.IsNullOrEmpty(str)
+				? new List<int>()
+				: str.Replace(" ", null).Split(';', StringSplitOptions.RemoveEmptyEntries)
+					.Where(i => !string.IsNullOrEmpty(i)).Select(int.Parse).ToList();
+
+		protected override string ConvertToString(List<int> l) =>
+			l.Count == 0 ? string.Empty : l.Select(i => $"{i};").Aggregate((to, add) => to + add);
+	}
+
+	public class IntArrConverter : MudBlazor.DefaultConverter<int[]>
 	{
-		SetFunc = l => l.Length == 0 ? string.Empty : l.Select(i => $"{i};").Aggregate((to, add) => to + add),
-		GetFunc = str => str.Replace(" ", null).Split(';', StringSplitOptions.RemoveEmptyEntries).Select(i => bool.Parse(i)).ToArray()
-	};
+		protected override int[] ConvertFromString(string str)
+		{
+			var result = string.IsNullOrEmpty(str)
+				? new int[0]
+				: str.Replace(" ", null).Split(';', StringSplitOptions.RemoveEmptyEntries)
+					.Where(i => !string.IsNullOrEmpty(i)).Select(int.Parse).ToArray();
+			return result;
+		}
+
+		protected override string ConvertToString(int[] l) =>
+			l.Length == 0 ? string.Empty : l.Select(i => $"{i};").Aggregate((to, add) => to + add);
+	}
+
+	public class BoolArrConverter : MudBlazor.DefaultConverter<bool[]>
+	{
+		protected override bool[] ConvertFromString(string str) =>
+			string.IsNullOrEmpty(str)
+				? new bool[0]
+				: str.Replace(" ", null).Split(';', StringSplitOptions.RemoveEmptyEntries)
+					.Where(i => !string.IsNullOrEmpty(i)).Select(bool.Parse).ToArray();
+
+		protected override string ConvertToString(bool[] l) =>
+			l.Length == 0 ? string.Empty 
+				: l.Select(i => $"{i};").Aggregate((to, add) => to + add);
+	}
 }

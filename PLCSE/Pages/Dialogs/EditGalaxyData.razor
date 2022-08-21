@@ -60,7 +60,7 @@
 	{
 		using var mem = new MemoryStream(Convert.FromBase64String(Save.CurrentSave.GalaxyGenerationSettingsData));
 		using var reader = new BinaryReader(mem);
-		int num = reader.ReadInt32();
+		Version = reader.ReadInt32();
 		this.NumberOfSectors = reader.ReadInt32();
 		this.SecTypeScalar_GenStore = this.GetRoundedFloat(reader.ReadSingle());
 		this.SecTypeScalar_LongRangeWarp = this.GetRoundedFloat(reader.ReadSingle());
@@ -85,7 +85,7 @@
 		this.MoonCountScalar = this.GetRoundedFloat(reader.ReadSingle());
 		this.EnemyRespawnTimerScalar = this.GetRoundedFloat(reader.ReadSingle());
 		this.CustomSeed = reader.ReadInt32();
-		if (num >= 2)
+		if (Version >= 2)
 		{
 			this.Mod_ShieldChargeRate_PS = this.GetRoundedFloat(reader.ReadSingle());
 			this.Mod_ShieldChargeRate_Other = this.GetRoundedFloat(reader.ReadSingle());
@@ -100,11 +100,11 @@
 			this.Mod_PhysicalDamageBoost_PS = this.GetRoundedFloat(reader.ReadSingle());
 			this.Mod_PhysicalDamageBoost_Other = this.GetRoundedFloat(reader.ReadSingle());
 		}
-		if (num >= 3)
+		if (Version >= 3)
 		{
 			this.MaxChaosLevel = this.GetRoundedFloat(reader.ReadSingle());
 		}
-		if (num >= 4)
+		if (Version >= 4)
 		{
 			this.SecTypeScalar_Graveyard = this.GetRoundedFloat(reader.ReadSingle());
 			this.SecTypeScalar_Frontlines = this.GetRoundedFloat(reader.ReadSingle());
@@ -112,7 +112,7 @@
 			this.SecTypeScalar_Minefield = this.GetRoundedFloat(reader.ReadSingle());
 			this.DroneModifierScalar = this.GetRoundedFloat(reader.ReadSingle());
 		}
-		if (num >= 5)
+		if (Version >= 5)
 		{
 			this.EnemyBackupRate = this.GetRoundedFloat(reader.ReadSingle());
 		}

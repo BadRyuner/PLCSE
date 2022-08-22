@@ -110,9 +110,9 @@
                 w.Write(s.FactionData.Length);
                 for(int i = 0; i < s.FactionData.Length; i++)
                 {
-                    w.Write(s.FactionData[i].ID);
-                    w.Write(s.FactionData[i].Continuous_GalaxySpreadLimit);
-                    w.Write(s.FactionData[i].Continuous_GalaxySpreadFactor);
+                    w.Write(s.FactionData[i].ID);//
+                    w.Write(s.FactionData[i].Continuous_GalaxySpreadLimit);//
+                    w.Write(s.FactionData[i].Continuous_GalaxySpreadFactor);//
                 }
                 w.Write(s.GalaxyGenerationSettingsData);
                 w.Write(s.ShipPosition.x);//
@@ -144,18 +144,18 @@
                     w.Write(s.ClassData[i] != null);
                     if (s.ClassData[i] != null)
 					{
-                        w.Write(s.ClassData[i].TalentPointsAvailable);
-                        w.Write(s.ClassData[i].SurvivalBonusCounter);
-                        w.Write(s.ClassData[i].Talents.Length);
-                        foreach (var t in s.ClassData[i].Talents)
+                        w.Write(s.ClassData[i].TalentPointsAvailable);//
+                        w.Write(s.ClassData[i].SurvivalBonusCounter);//
+                        w.Write(s.ClassData[i].Talents.Length);//
+                        foreach (var t in s.ClassData[i].Talents)//
                             w.Write(t);
-                        w.Write(s.ClassData[i].PawnInventory.Count);
-                        foreach (var pi in s.ClassData[i].PawnInventory)
+                        w.Write(s.ClassData[i].PawnInventory.Count);//
+                        foreach (var pi in s.ClassData[i].PawnInventory)//
                         {
-                            w.Write((int)pi.ItemType);
-                            w.Write(pi.SubType);
-                            w.Write(pi.Level);
-                            w.Write(pi.OptionalEquipID);
+                            w.Write((int)pi.ItemType);//
+                            w.Write(pi.SubType);//
+                            w.Write(pi.Level);//
+                            w.Write(pi.OptionalEquipID);//
                         }
                     }
                 }
@@ -257,7 +257,7 @@
                 foreach (var i in s.SectorDataBlocks)
                 {
                     w.Write(i.ID);
-                    w.Write(i.Type);
+                    w.Write((int)i.Type);
                     w.Write(i.FactionStrength);
                     w.Write(i.Faction);
                     w.Write(i.SectorPosition.x);

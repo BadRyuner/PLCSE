@@ -1,51 +1,50 @@
 ﻿@page "/crewscience"
 
-@if(Save.CurrentSave != null)
-{
-	<MudCard>
-		<MudCardHeader>
-			<MudText Typo="Typo.h6" Align="Align.Center">Crew Info</MudText>
-		</MudCardHeader>
-		<MudCardContent>
-			<MudGrid>
-				<MudItem xs="12" sm="4">  
-					<MudNumericField @bind-Value="Save.CurrentSave.CrewCredits" Label="Credits" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
-				</MudItem>
-				<MudItem xs="12" sm="4"> 
-					<MudNumericField @bind-Value="Save.CurrentSave.CrewXP" Label="XP" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
-				</MudItem>
-				<MudItem xs="12" sm="4"> 
-					<MudNumericField @bind-Value="Save.CurrentSave.CrewLevel" Label="Level" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
-				</MudItem>
-				<MudItem xs="12" sm="4"> 
-					<MudNumericField @bind-Value="Save.CurrentSave.CrewFactionID" Label="Crew Faction ID" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
-				</MudItem>
-				<MudItem xs="12" sm="4"> 
-					<MudCheckBox @bind-Checked="Save.CurrentSave.PurchaseLimitsEnabled" Label="Purchase Limits Enabled" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
-				</MudItem>
-			</MudGrid>
-		</MudCardContent>
-	</MudCard>
+<MudCard>
+	<MudCardHeader>
+		<MudText Typo="Typo.h6" Align="Align.Center">Crew Info</MudText>
+	</MudCardHeader>
+	<MudCardContent>
+		<MudGrid>
+			<MudItem xs="12" sm="4">  
+				<MudNumericField @bind-Value="Save.CurrentSave.CrewCredits" Label="Credits" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+			</MudItem>
+			<MudItem xs="12" sm="4"> 
+				<MudNumericField @bind-Value="Save.CurrentSave.CrewXP" Label="XP" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+			</MudItem>
+			<MudItem xs="12" sm="4"> 
+				<MudNumericField @bind-Value="Save.CurrentSave.CrewLevel" Label="Level" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+			</MudItem>
+			<MudItem xs="12" sm="4"> 
+				<MudNumericField @bind-Value="Save.CurrentSave.CrewFactionID" Label="Crew Faction ID" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+			</MudItem>
+			<MudItem xs="12" sm="4"> 
+				<MudCheckBox @bind-Checked="Save.CurrentSave.PurchaseLimitsEnabled" Label="Purchase Limits Enabled" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+			</MudItem>
+		</MudGrid>
+	</MudCardContent>
+</MudCard>
 
-	<MudCard>
+<MudCard>
 		<MudCardHeader>
 			<MudText Typo="Typo.h6" Align="Align.Center">Research Data</MudText>
 		</MudCardHeader>
 		<MudCardContent>
 			<MudGrid>
-				<!-- <MudItem xs="12" sm="4"> 
-					<MudSelect bind-Value="Save.CurrentSave.TalentToResearch" Label="Talent To Research" Margin="Margin.Dense">
-					foreach (var item in Enum.GetValues(typeof(ETalents)))
-					{
-						<MudSelectItem Value="item">item</MudSelectItem>
-					}
+				<MudItem xs="12" sm="4">
+					<MudSelect @bind-Value="Save.CurrentSave.TalentToResearch" Label="Talent To Research" Margin="Margin.Dense" Variant="Variant.Outlined">
+						@foreach (var item in Enum.GetValues<ETalents>())
+						{
+							var i = item;
+							<MudSelectItem Value="@i">@i.ToString()</MudSelectItem>
+						}
 					</MudSelect>
-				</MudItem> EXCEPTON LOL +_+ -->
-				<MudItem xs="12" sm="6"> 
-					<MudNumericField @bind-Value="Save.CurrentSave.TalentLockedStatus" Label="As long decimal" Margin="Margin.Dense" Variant="Variant.Outlined"/>
+				</MudItem>
+				<MudItem xs="12" sm="4"> 
+					<MudNumericField @bind-Value="Save.CurrentSave.TalentLockedStatus" Label="Talent Locked Status (Use Any Binary-Decimal Calculator, 64bits)" Margin="Margin.Dense" Variant="Variant.Outlined"/>
 				</MudItem>
 
-				<MudItem xs="12" sm="6">  
+				<MudItem xs="12" sm="4">  
 					<MudNumericField @bind-Value="Save.CurrentSave.JumpsNeededToResearchTalent" Label="Jumps Needed To Research Talent" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
 				</MudItem>
 				
@@ -94,20 +93,89 @@
 		</MudCardContent>
 	</MudCard>
 
-	<MudCard>
-		<MudCardHeader>
-			<MudText Typo="Typo.h6" Align="Align.Center">Data Fragments</MudText>
-		</MudCardHeader>
-		<MudCardContent>
-			<MudText>Work In Progress...</MudText>
-			<MudGrid>
-				<MudItem xs="12" sm="4">  
-					<MudNumericField @bind-Value="Save.CurrentSave.DataFragmentsCollected" Label="Data Fragments Collected" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
-				</MudItem>
-			</MudGrid>
-		</MudCardContent>
-	</MudCard>
-}
+<MudCard>
+	<MudCardHeader>
+		<MudText Typo="Typo.h6" Align="Align.Center">Data Fragments</MudText>
+	</MudCardHeader>
+	<MudCardContent>
+		<MudGrid>
+			<MudItem xs="12" sm="4">  
+				<MudNumericField @bind-Value="Save.CurrentSave.DataFragmentsCollected" Label="Data Fragments Collected (Use Any Bin-Dec Calculator, 32bits)" Margin="Margin.Dense" Variant="Variant.Outlined"/> 
+			</MudItem>
+		</MudGrid>
+	</MudCardContent>
+</MudCard>
+
+<MudCard>
+	<MudCardHeader>
+		<MudText Typo="Typo.h6" Align="Align.Center">Crew</MudText>
+	</MudCardHeader>
+	<MudCardContent>
+		<MudTabs Centered="true" Outlined="true" Position="Position.Top" Border="true">
+			<MudTabPanel Text="None"> </MudTabPanel>
+			@foreach (var _p in Save.CurrentSave.ClassData)
+			{
+				if (_p != null)
+				{
+					var classdata = _p;
+					<MudTabPanel Text="@classdata._id.ToString()">
+						<MudTabs Centered="true" Outlined="true" Position="Position.Top" Border="true">
+							<MudTabPanel Text="Info">
+								<MudStack>
+									<MudNumericField @bind-Value="classdata.SurvivalBonusCounter" Label="Survival Bonus Counter" Margin="Margin.Dense" Variant="Variant.Outlined"></MudNumericField>
+									<MudNumericField @bind-Value="classdata.TalentPointsAvailable" Label="Talent Points Available" Margin="Margin.Dense" Variant="Variant.Outlined"></MudNumericField>
+								</MudStack>
+							</MudTabPanel>
+							<MudTabPanel Text="Talents">
+								<MudStack>
+									@for (int i = 0; i < classdata.Talents.Length; i++)
+									{
+										int ii = i;
+										<MudNumericField @bind-Value="classdata.Talents[ii]" Label="@(((ETalents)ii).ToString())" Margin="Margin.Dense" Variant="Variant.Outlined"></MudNumericField>
+									}
+								</MudStack>
+							</MudTabPanel>
+							<MudTabPanel Text="Inventory">
+								<MudSimpleTable Bordered="true" Dense="true" Outlined="true">
+									<thead>
+									<th>Item Type</th>
+									<th>Item Subtype</th>
+									<th>Level</th>
+									<th>Equip ID</th>
+									<th>Clone</th>
+									<th>Remove</th>
+									</thead>
+									<tbody>
+									@for (int i = 0; i < classdata.PawnInventory.Count; i++)
+									{
+										int ii = i;
+										<tr>
+											<td>
+												<MudSelect @bind-Value="classdata.PawnInventory[ii].ItemType" Margin="Margin.Dense" Variant="Variant.Outlined">
+													@foreach (var x in Enum.GetValues<EPawnItemType>())
+													{
+														var xx = x;
+														<MudSelectItem Value="@xx">@xx.ToString()</MudSelectItem>
+													}
+												</MudSelect>
+											</td>
+											<td><MudNumericField @bind-Value="classdata.PawnInventory[ii].Level" Margin="Margin.Dense" Variant="Variant.Outlined"/> </td>
+											<td><MudNumericField @bind-Value="classdata.PawnInventory[ii].SubType" Margin="Margin.Dense" Variant="Variant.Outlined"/> </td>
+											<td><MudNumericField @bind-Value="classdata.PawnInventory[ii].OptionalEquipID" Margin="Margin.Dense" Variant="Variant.Outlined"/> </td>
+											<td><MudChip Variant="Variant.Text" Color="Color.Success" OnClick="() => { classdata.PawnInventory.Insert(ii, classdata.PawnInventory[ii].Clone()); }">+</MudChip></td>
+											<td><MudChip Variant="Variant.Text" Color="Color.Warning" OnClick="() => { classdata.PawnInventory.RemoveAt(ii); }">X</MudChip></td>
+										</tr>
+									}
+									</tbody>
+								</MudSimpleTable>
+							</MudTabPanel>
+						</MudTabs>
+					</MudTabPanel>
+				}
+			}
+		</MudTabs>
+	</MudCardContent>
+</MudCard>
 
 @code {
 }

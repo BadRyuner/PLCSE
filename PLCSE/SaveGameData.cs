@@ -20,6 +20,15 @@ namespace PLCSE
 		public void AfterRead()
         {
 			//for (int i = 0; i < TalentsArray.Length; i++) TalentsArray[i] = (TalentLockedStatus & (1L << i)) == 1;
+			int counter = 1;
+			foreach (var i in ClassData)
+			{
+				if (i != null)
+				{
+					i._id = counter;
+					counter++;
+				}
+			}
         }
 
 		public void BeforeWrite()

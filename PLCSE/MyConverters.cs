@@ -7,6 +7,7 @@ public static class MyConverters
 	public static IntListConverter ILC = new IntListConverter();
 	public static IntArrConverter IAC = new IntArrConverter();
 	public static BoolArrConverter BAC = new BoolArrConverter();
+	public static VectorConverter VC = new VectorConverter();
 
 	public class IntListConverter : MudBlazor.DefaultConverter<List<int>>
 	{
@@ -46,5 +47,25 @@ public static class MyConverters
 		protected override string ConvertToString(bool[] l) =>
 			l.Length == 0 ? string.Empty 
 				: l.Select(i => $"{i};").Aggregate((to, add) => to + add);
+	}
+
+	public class VectorConverter : MudBlazor.DefaultConverter<Vector3>
+	{
+		protected override Vector3 ConvertFromString(string str)
+		{
+			if (str.Count(c => c == ';') != 2) return Vector3.zero;
+			try
+			{
+				var coords = str.Split(';', StringSplitOptions.RemoveEmptyEntries).Select(s => float.Parse(s))
+					.ToArray();
+				return new Vector3(coords[0], coords[1], coords[2]);
+			}
+			catch
+			{
+				return Vector3.zero;
+			}
+		}
+
+		protected override string ConvertToString(Vector3 v) => $"{v.x};{v.y};{v.z}";
 	}
 }

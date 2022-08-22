@@ -33,11 +33,21 @@ namespace PLCSE
 		public int Level;
 
 		public int OptionalEquipID;
+
+		public PawnItemDataBlock Clone() => new()
+			{
+				ItemType = this.ItemType,
+				SubType = this.SubType,
+				Level = this.Level,
+				OptionalEquipID = this.OptionalEquipID
+			};
 	}
 
 
 	public class ClassDataBlock
 	{
+		internal int _id;
+
 		public int SurvivalBonusCounter;
 
 		public int TalentPointsAvailable;
@@ -96,35 +106,35 @@ namespace PLCSE
 		public float Continuous_GalaxySpreadFactor;
 	}
 
-	public struct SectorDataBlock
+	public class SectorDataBlock
 	{
-		public int ID;
+		public int ID { get; set; }
 
-		public int Type;
+		public int Type { get; set; }
 
-		public float FactionStrength;
+		public float FactionStrength { get; set; }
 
-		public int Faction;
+		public int Faction { get; set; }
 
-		public Vector3 SectorPosition;
+		public Vector3 SectorPosition{ get; set; }
 
-		public string SectorName;
+		public string? SectorName { get; set; }
 
-		public int MissionSpecificID;
+		public int MissionSpecificID { get; set; }
 
-		public bool LockedToFaction;
+		public bool LockedToFaction { get; set; }
 
-		public float LastCalculatedSectorStrength;
+		public float LastCalculatedSectorStrength { get; set; }
 
-		public bool IsPartOfLongRangeWarpNetwork;
+		public bool IsPartOfLongRangeWarpNetwork { get; set; }
 
 		public PLPersistantEncounterData PED;
 
-		public bool HasPED;
+		public bool HasPED { get; set; }
 
-		public bool Visited;
+		public bool Visited { get; set; }
 
-		public int BiscuitsSoldCounter;
+		public int BiscuitsSoldCounter { get; set; }
 
 		public List<PLPlayerDroppedItem_WithTLIData> DroppedItems;
 

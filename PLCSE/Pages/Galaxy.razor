@@ -45,19 +45,19 @@
 			<MudText>Faction Reputation</MudText>
 			<MudGrid>
 				<MudItem xs="12" sm="4">
-					<MudNumericField @bind-Value="Save.CurrentSave.FactionRepInfo[0]" Label="CU Faction Rep" Margin="Margin.Dense" Variant="Variant.Outlined"/>
+					<MudNumericField @bind-Value="Save.CurrentSave.FactionRepInfo[0]" Label="CU (0) Faction Rep" Margin="Margin.Dense" Variant="Variant.Outlined"/>
 				</MudItem>
 				<MudItem xs="12" sm="4">
-					<MudNumericField @bind-Value="Save.CurrentSave.FactionRepInfo[1]" Label="AOG Faction Rep" Margin="Margin.Dense" Variant="Variant.Outlined"/>
+					<MudNumericField @bind-Value="Save.CurrentSave.FactionRepInfo[1]" Label="AOG (1) Faction Rep" Margin="Margin.Dense" Variant="Variant.Outlined"/>
 				</MudItem>
 				<MudItem xs="12" sm="4">
-					<MudNumericField @bind-Value="Save.CurrentSave.FactionRepInfo[2]" Label="WD Faction Rep" Margin="Margin.Dense" Variant="Variant.Outlined"/>
+					<MudNumericField @bind-Value="Save.CurrentSave.FactionRepInfo[2]" Label="WD (2) Faction Rep" Margin="Margin.Dense" Variant="Variant.Outlined"/>
 				</MudItem>
 				<MudItem xs="12" sm="4">
-					<MudNumericField @bind-Value="Save.CurrentSave.FactionRepInfo[3]" Label="FB Faction Rep" Margin="Margin.Dense" Variant="Variant.Outlined"/>
+					<MudNumericField @bind-Value="Save.CurrentSave.FactionRepInfo[3]" Label="FB (3) Faction Rep" Margin="Margin.Dense" Variant="Variant.Outlined"/>
 				</MudItem>
 				<MudItem xs="12" sm="4">
-					<MudNumericField @bind-Value="Save.CurrentSave.FactionRepInfo[4]" Label="PT Faction Rep" Margin="Margin.Dense" Variant="Variant.Outlined"/>
+					<MudNumericField @bind-Value="Save.CurrentSave.FactionRepInfo[4]" Label="PT (4) Faction Rep" Margin="Margin.Dense" Variant="Variant.Outlined"/>
 				</MudItem>
 			</MudGrid>
 			<MudText>Faction Data</MudText>
@@ -87,7 +87,7 @@
 	<MudCardContent>
 		<MudStack>
 			<MudText>
-				"7 - all. 3 - all w/o finall. 1,2 - one of the first races"
+				7 - all. 3 - all w/o finall. 1,2 - one of the first races
 			</MudText>
 			<MudGrid>
 				<MudItem xs="12" sm="4">
@@ -128,60 +128,153 @@
 		<MudText Typo="Typo.h6" Align="Align.Center">Sectors</MudText>
 	</MudCardHeader>
 	<MudCardContent>
-		<MudDataGrid Items="Save.CurrentSave.SectorDataBlocks" EditMode="DataGridEditMode.Cell" EditTrigger="DataGridEditTrigger.Manual" Bordered="true" Dense="true" ReadOnly="false">
-			<Columns>
-				<Column T="SectorDataBlock" Field="ID" />
-				<Column T="SectorDataBlock" Field="Type">
-					<EditTemplate>
-						<MudSelect T="int" @bind-Value="context.Item.Type" Dense="true">
-							@foreach (var i in Enum.GetValues<ESectorVisualIndication>())
-							{
-								var ii = i;
-								<MudSelectItem T="int" Value="@((int)ii)">@ii.ToString()</MudSelectItem>
-							}
-						</MudSelect>
-					</EditTemplate>
-				</Column>
-				<Column T="SectorDataBlock" Field="FactionStrength" />
-				<Column T="SectorDataBlock" Field="Faction" />
-				<Column T="SectorDataBlock" Field="SectorPosition">
-					<EditTemplate>
-						<MudTextField Converter="MyConverters.VC" @bind-Value="context.Item.SectorPosition"/>
-					</EditTemplate>
-				</Column>
-				<Column T="SectorDataBlock" Field="SectorName" />
-				<Column T="SectorDataBlock" Field="MissionSpecificID" />
-				<Column T="SectorDataBlock" Field="LockedToFaction">
-					<EditTemplate>
-						<MudCheckBox @bind-Checked="context.Item.LockedToFaction" Dense="true"/>
-					</EditTemplate>
-				</Column>
-				<Column T="SectorDataBlock" Field="IsPartOfLongRangeWarpNetwork" Title="WarpGate">
-					<EditTemplate>
-						<MudCheckBox @bind-Checked="context.Item.IsPartOfLongRangeWarpNetwork" Dense="true" />
-					</EditTemplate>
-				</Column>
-				<Column T="SectorDataBlock" Field="Visited">
-					<EditTemplate>
-						<MudCheckBox @bind-Checked="context.Item.Visited" Dense="true"/>
-					</EditTemplate>
-				</Column>
-				<Column T="SectorDataBlock" Field="BiscuitsSoldCounter" />
-			</Columns>
-			<PagerContent>
-				<MudDataGridPager T="SectorDataBlock" PageSizeOptions="new [] {10,25,50,100}" />
-			</PagerContent>
-		</MudDataGrid>
+		<MudStack>
+			<MudButton OnClick="() => displaySectors = !displaySectors" Variant="Variant.Outlined">@(displaySectors ? "Hide" : "Show")</MudButton>
+			@if (displaySectors)
+			{
+				<MudDataGrid Items="Save.CurrentSave.SectorDataBlocks" EditMode="DataGridEditMode.Cell" EditTrigger="DataGridEditTrigger.Manual" Bordered="true" Dense="true" ReadOnly="false">
+					<Columns>
+						<Column T="SectorDataBlock" Field="ID"/>
+						<Column T="SectorDataBlock" Field="Type">
+							<EditTemplate>
+								<MudSelect T="int" @bind-Value="context.Item.Type" Dense="true">
+									@foreach (var i in Enum.GetValues<ESectorVisualIndication>())
+									{
+										var ii = i;
+										<MudSelectItem T="int" Value="@((int)ii)">@ii.ToString()</MudSelectItem>
+									}
+								</MudSelect>
+							</EditTemplate>
+						</Column>
+						<Column T="SectorDataBlock" Field="FactionStrength"/>
+						<Column T="SectorDataBlock" Field="Faction"/>
+						<Column T="SectorDataBlock" Field="SectorPosition">
+							<EditTemplate>
+								<MudTextField Converter="MyConverters.VC" @bind-Value="context.Item.SectorPosition"/>
+							</EditTemplate>
+						</Column>
+						<Column T="SectorDataBlock" Field="SectorName"/>
+						<Column T="SectorDataBlock" Field="MissionSpecificID"/>
+						<Column T="SectorDataBlock" Field="BiscuitsSoldCounter"/>
+						<Column T="SectorDataBlock" Field="LockedToFaction">
+							<EditTemplate>
+								<MudCheckBox @bind-Checked="context.Item.LockedToFaction" Dense="true"/>
+							</EditTemplate>
+						</Column>
+						<Column T="SectorDataBlock" Field="IsPartOfLongRangeWarpNetwork" Title="WarpGate">
+							<EditTemplate>
+								<MudCheckBox @bind-Checked="context.Item.IsPartOfLongRangeWarpNetwork" Dense="true"/>
+							</EditTemplate>
+						</Column>
+						<Column T="SectorDataBlock" Field="Visited">
+							<EditTemplate>
+								<MudCheckBox @bind-Checked="context.Item.Visited" Dense="true"/>
+							</EditTemplate>
+						</Column>
+						<Column T="SectorDataBlock" Field="HasPED">
+							<EditTemplate>
+								<MudCheckBox @bind-Checked="context.Item.HasPED" Dense="true"/>
+							</EditTemplate>
+						</Column>
+						<Column T="SectorDataBlock" Title="Delete" IsEditable="false">
+							<CellTemplate>
+								<MudChip Variant="Variant.Text" Color="Color.Warning" OnClick="() => Save.CurrentSave.SectorDataBlocks.RemoveAll(a => a.ID == context.Item.ID)">X</MudChip>
+							</CellTemplate>
+						</Column>
+					</Columns>
+					<PagerContent>
+						<MudDataGridPager T="SectorDataBlock" PageSizeOptions="new[] { 10, 25, 50, 100 }"/>
+					</PagerContent>
+				</MudDataGrid>
+			}
+		</MudStack>
 	</MudCardContent>
-	<MudCardActions>
-		<MudButton Variant="Variant.Text" Color="Color.Primary"
-		           StartIcon="@Icons.Filled.Add"
-				   OnClick="@(async () => { Save.CurrentSave.SectorDataBlocks.Add(new SectorDataBlock() { SectorName = Save.CurrentSave.SectorDataBlocks.Count.ToString(), ID = Save.CurrentSave.SectorDataBlocks.Count, HasPED = false, SectorPosition = Vector3.zero, MissionSpecificID = -1}); await InvokeAsync(StateHasChanged); })">
-			Add New Empty Sector (Planets and shops do not work!!!)
-		</MudButton>
-	</MudCardActions>
+	@if (displaySectors)
+	{
+		<MudCardActions>
+			<MudButton Variant="Variant.Text" Color="Color.Primary"
+			           StartIcon="@Icons.Filled.Add"
+			           OnClick="@(async () => { Save.CurrentSave.SectorDataBlocks.Add(new SectorDataBlock() { SectorName = Save.CurrentSave.SectorDataBlocks.Count.ToString(), ID = Save.CurrentSave.SectorDataBlocks.Count, HasPED = false, SectorPosition = Vector3.zero, MissionSpecificID = -1}); await InvokeAsync(StateHasChanged); })">
+				Add New Empty Sector (Planets and shops do not work!!!)
+			</MudButton>
+		</MudCardActions>
+	}
+</MudCard>
+
+<MudCard>
+	<MudCardHeader>
+		<MudText Typo="Typo.h6">Enemy ships</MudText>
+	</MudCardHeader>
+	<MudCardContent>
+		<MudStack>
+			<MudButton OnClick="() => displayShips = !displayShips" Variant="Variant.Outlined">@(displayShips ? "Hide" : "Show")</MudButton>
+			@if (displayShips)
+			{
+				<MudDataGrid Items="Save.CurrentSave.ShipDataBlocks" EditMode="DataGridEditMode.Cell" EditTrigger="DataGridEditTrigger.Manual" Bordered="true" Dense="true" ReadOnly="false">
+					<Columns>
+						<Column T="ShipDataBlock" Field="SectorID"/>
+						<Column T="ShipDataBlock" Field="FactionID"/>
+						<Column T="ShipDataBlock" Field="ShipType">
+							<EditTemplate>
+								<MudSelect T="int" @bind-Value="context.Item.ShipType" Dense="true">
+									@foreach (var i in Enum.GetValues<EShipType>())
+									{
+										var ii = i;
+										<MudSelectItem T="int" Value="@((int)ii)">@ii.ToString()</MudSelectItem>
+									}
+								</MudSelect>
+							</EditTemplate>
+						</Column>
+						<Column T="ShipDataBlock" Field="ShipName"/>
+						<Column T="ShipDataBlock" Field="HullPercent"/>
+						<Column T="ShipDataBlock" Field="ShldPercent"/>
+						<Column T="ShipDataBlock" Field="Modifiers"/>
+						<Column T="ShipDataBlock" Field="IsFlagged">
+							<EditTemplate>
+								<MudCheckBox @bind-Checked="context.Item.IsFlagged" Dense="true"/>
+							</EditTemplate>
+						</Column>
+						<Column T="ShipDataBlock" Field="ForceHostile">
+							<EditTemplate>
+								<MudCheckBox @bind-Checked="context.Item.ForceHostile" Dense="true"/>
+							</EditTemplate>
+						</Column>
+						<Column T="ShipDataBlock" Field="ForceHostileAll">
+							<EditTemplate>
+								<MudCheckBox @bind-Checked="context.Item.ForceHostileAll" Dense="true"/>
+							</EditTemplate>
+						</Column>
+						<Column T="ShipDataBlock" Field="ForceHostileName"/>
+						<Column T="ShipDataBlock" Field="SelectedActorID"/>
+						<Column T="ShipDataBlock" Field="BiscuitsSold"/>
+						<Column T="ShipDataBlock" Field="WonFBContest">
+							<EditTemplate>
+								<MudCheckBox @bind-Checked="context.Item.WonFBContest" Dense="true"/>
+							</EditTemplate>
+						</Column>
+						<Column T="ShipDataBlock" Field="EnsureNoCrew">
+							<EditTemplate>
+								<MudCheckBox @bind-Checked="context.Item.EnsureNoCrew" Dense="true"/>
+							</EditTemplate>
+						</Column>
+						<Column T="ShipDataBlock" Field="IsRelicHunter">
+							<EditTemplate>
+								<MudCheckBox @bind-Checked="context.Item.IsRelicHunter" Dense="true"/>
+							</EditTemplate>
+						</Column>
+						<Column T="ShipDataBlock" Field="RH_Data"/>
+						<Column T="ShipDataBlock" Field="RH_Crew"/>
+					</Columns>
+					<PagerContent>
+						<MudDataGridPager T="ShipDataBlock" PageSizeOptions="new[] { 10, 25, 50, 100 }" />
+					</PagerContent>
+				</MudDataGrid>
+			}
+		</MudStack>
+	</MudCardContent>
 </MudCard>
 
 @code {
-
+	bool displayShips = false;
+	bool displaySectors = false;
 }

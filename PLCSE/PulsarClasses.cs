@@ -272,47 +272,47 @@ namespace PLCSE
 		public ObscuredFloat Health;
 	}
 
-	public struct ShipDataBlock
+	public class ShipDataBlock
 	{
-		public ObscuredInt ShipType;
+		public ObscuredInt ShipType { get; set; }
 
-		public ObscuredInt FactionID;
+		public ObscuredInt FactionID { get; set; }
 
-		public ObscuredInt SectorID;
+		public ObscuredInt SectorID { get; set; }
 
-		public bool IsDestroyed;
+		public bool IsDestroyed { get; set; }
 
-		public string ShipName;
+		public string? ShipName { get; set; }
 
-		public List<ComponentOverrideData> CompOverrides;
+		public List<ComponentOverrideData> CompOverrides { get; set; }
 
-		public float HullPercent;
+		public float HullPercent { get; set; }
 
-		public float ShldPercent;
+		public float ShldPercent { get; set; }
 
-		public ObscuredInt Modifiers;
+		public ObscuredInt Modifiers { get; set; }
 
-		public bool IsFlagged;
+		public bool IsFlagged { get; set; }
 
-		public bool ForceHostile;
+		public bool ForceHostile { get; set; }
 
-		public bool ForceHostileAll;
+		public bool ForceHostileAll { get; set; }
 
-		public string ForceHostileName;
+		public string? ForceHostileName { get; set; }
 
-		public string SelectedActorID;
+		public string? SelectedActorID { get; set; }
 
-		public ObscuredInt BiscuitsSold;
+		public ObscuredInt BiscuitsSold { get; set; }
 
-		public bool WonFBContest;
+		public bool WonFBContest { get; set; }
 
-		public bool EnsureNoCrew;
+		public bool EnsureNoCrew { get; set; }
 
-		public bool IsRelicHunter;
+		public bool IsRelicHunter { get; set; }
 
-		public string RH_Data;
+		public string? RH_Data { get; set; }
 
-		public string RH_Crew;
+		public string? RH_Crew { get; set; }
 	}
 
 	public class ComponentOverrideData

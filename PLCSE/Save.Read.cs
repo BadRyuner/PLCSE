@@ -441,7 +441,7 @@ namespace PLCSE
 				//Console.WriteLine($"Readed: ShipDataBlock[].Length -> {num27}");
 				for (int num28 = 0; num28 < num27; num28++)
 				{
-					ShipDataBlock shipDataBlock = default(ShipDataBlock);
+					ShipDataBlock shipDataBlock = new ShipDataBlock();
 					shipDataBlock.ShipType = binaryReader.ReadInt32();
 					shipDataBlock.FactionID = binaryReader.ReadInt32();
 					shipDataBlock.IsDestroyed = binaryReader.ReadBoolean();

@@ -183,6 +183,8 @@ namespace PLCSE
 		public Vector3 ShipPosition;
 
 		public Vector3 ShipDirection;
+
+		public int PS_FactionID;
 	}
 
 	public class SaveGameDataBasic

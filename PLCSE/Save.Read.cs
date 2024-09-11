@@ -327,6 +327,10 @@ namespace PLCSE
 					sgd.ShipPosition = binaryReader.ReadVector3();
 					sgd.ShipDirection = binaryReader.ReadVector3();
 				}
+				if (sgd.SaveVerID >= 61)
+				{
+					sgd.PS_FactionID = binaryReader.ReadInt32();
+				}
 				sgd.ChaosLevel = binaryReader.ReadSingle();
 				sgd.ActiveChaosEvents = binaryReader.ReadInt64();
 				sgd.TalentLockedStatus = binaryReader.ReadInt64();

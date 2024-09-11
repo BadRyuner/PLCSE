@@ -121,6 +121,8 @@
                 w.Write(s.ShipDirection.x);//
                 w.Write(s.ShipDirection.y);//
                 w.Write(s.ShipDirection.z);//
+                if (s.SaveVerID >= 61)
+                    w.Write(s.PS_FactionID);
                 w.Write(s.ChaosLevel);//
                 w.Write(s.ActiveChaosEvents);//
                 w.Write(s.TalentLockedStatus);//
